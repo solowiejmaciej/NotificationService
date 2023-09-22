@@ -13,9 +13,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93bcf5f0-dc27-4a4c-9f68-4c845652084e" name="Changes" comment="init">
-      <change afterPath="$PROJECT_DIR$/src/NotificationService/appsettings.Development.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/NotificationService/appsettings.json" afterDir="false" />
+    <list default="true" id="93bcf5f0-dc27-4a4c-9f68-4c845652084e" name="Changes" comment="cleanup">
+      <change beforePath="$PROJECT_DIR$/.idea/.idea.MyMovies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyMovies/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/certi/privateKey.pem" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/certi/privateKey.pem" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Models/AppSettings/JWTSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Models/AppSettings/JWTSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Services/JWTManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Services/JWTManager.cs" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,11 +41,25 @@
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "solowiejmaciej"
+  }
+}]]></component>
   <component name="GithubProjectSettings">
     <option name="branchProtectionPatterns">
       <list>
         <option value="master" />
       </list>
+    </option>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="selectedUrlAndAccountId">
+      <UrlAndAccount>
+        <option name="accountId" value="4d19723f-78fc-4cbb-a7ec-94cf9bc5975d" />
+        <option name="url" value="https://github.com/solowiejmaciej/NotificationService" />
+      </UrlAndAccount>
     </option>
   </component>
   <component name="HighlightingSettingsPerFile">
@@ -85,7 +103,7 @@
     "node.js.detected.package.tslint": "true",
     "node.js.selected.package.eslint": "(autodetect)",
     "node.js.selected.package.tslint": "(autodetect)",
-    "settings.editor.selected.configurable": "preferences.pluginManager",
+    "settings.editor.selected.configurable": "RiderNuGetOptionsPageId",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -225,7 +243,7 @@
       <updated>1695405140973</updated>
       <workItem from="1695405144220" duration="1196000" />
       <workItem from="1695406658724" duration="506000" />
-      <workItem from="1695407177984" duration="889000" />
+      <workItem from="1695407177984" duration="1687000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -235,7 +253,31 @@
       <option name="project" value="LOCAL" />
       <updated>1695407884686</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1695408201928</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1695408201928</updated>
+    </task>
+    <task id="LOCAL-00003" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1695408240914</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1695408240914</updated>
+    </task>
+    <task id="LOCAL-00004" summary="cleanup">
+      <option name="closed" value="true" />
+      <created>1695408389760</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1695408389760</updated>
+    </task>
+    <option name="localTasksCounter" value="5" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -256,7 +298,8 @@
   <component name="VcsManagerConfiguration">
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="init" />
-    <option name="LAST_COMMIT_MESSAGE" value="init" />
+    <MESSAGE value="cleanup" />
+    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

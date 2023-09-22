@@ -58,7 +58,7 @@ public class JwtManager : IJwtManager
                 new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
             };
 
-        string rsaPrivateKey = File.ReadAllText(@"certi\privateKey.pem");
+        string rsaPrivateKey = _jwtAppSettings.Value.PrivateKey;
         using var rsa = RSA.Create();
         rsa.ImportFromPem(rsaPrivateKey);
 
