@@ -11,13 +11,13 @@ using NotificationService.Services;
 
 namespace NotificationService.Hangfire.Jobs;
 
-public abstract class EmailDeliveryProcessingJob
+public  class EmailDeliveryProcessingJob
 {
     private readonly ILogger<EmailDeliveryProcessingJob> _logger;
     private readonly IEmailsRepository _repo;
     private readonly SMTPSettings _config;
 
-    protected EmailDeliveryProcessingJob(
+    public EmailDeliveryProcessingJob(
         ILogger<EmailDeliveryProcessingJob> logger,
         IOptions<SMTPSettings> config,
         IEmailsRepository repository

@@ -9,4 +9,5 @@
   &lt;TestAncestor&gt;
     &lt;TestId&gt;xUnit::E1EDD997-46A6-44F3-8421-6105199B7A4A::net7.0::EventsConsumer.Tests.StringBuilderTests&lt;/TestId&gt;
   &lt;/TestAncestor&gt;
-&lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>
+&lt;/SessionState&gt;</s:String>
+	</wpf:ResourceDictionary>

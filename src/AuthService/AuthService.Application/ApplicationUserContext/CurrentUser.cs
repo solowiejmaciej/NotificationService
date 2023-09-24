@@ -2,15 +2,13 @@
 {
     public class CurrentUser
     {
-        public CurrentUser(string id, string login, string role)
+        public CurrentUser(string id, string login)
         {
             Id = id;
             Login = login;
-            Role = role;
         }
 
         public string Id { get; set; }
         public string Login { get; set; }
-        public string Role { get; set; }
     }
 }

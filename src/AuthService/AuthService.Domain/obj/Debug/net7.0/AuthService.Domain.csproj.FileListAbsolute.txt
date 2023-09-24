@@ -10,3 +10,6 @@
 /Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/obj/Debug/net7.0/refint/AuthService.Domain.dll
 /Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/obj/Debug/net7.0/AuthService.Domain.pdb
 /Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/obj/Debug/net7.0/ref/AuthService.Domain.dll
+/Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/bin/Debug/net7.0/Shared.dll
+/Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/bin/Debug/net7.0/Shared.pdb
+/Users/solow/Developer/MoviesAPI - Dev/src/AuthService/AuthService.Domain/obj/Debug/net7.0/AuthService.Domain.csproj.CopyComplete

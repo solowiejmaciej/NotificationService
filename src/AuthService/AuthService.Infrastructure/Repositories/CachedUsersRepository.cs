@@ -95,6 +95,17 @@ public class CachedUsersRepository : IUsersRepository
         return _decorated.GetByEmailAsync(email, cancellationToken);
     }
 
+    public Task ConfirmEmailAsync(string currentUserId, CancellationToken cancellationToken = default)
+    {
+        return _decorated.ConfirmEmailAsync(currentUserId, cancellationToken);
+    }
+
+
+    public Task ConfirmPhoneNumberAsync(string currentUserId, CancellationToken cancellationToken = default)
+    {
+        return _decorated.ConfirmPhoneNumberAsync(currentUserId, cancellationToken);
+    }
+
 
     public void Dispose()
     {

@@ -12,9 +12,9 @@ namespace EventsConsumer;
 
 public interface INotificationApiClient
 {
-    public void SendEmail(string userId);
+    public void SendEmail(string userId, SendEmailBody body);
     public Task SendPush(string userId);
-    public Task SendSms(string userId);
+    public void SendSms(string userId, string body);
 }
 
 public class NotificationApiClient : INotificationApiClient
@@ -32,7 +32,7 @@ public class NotificationApiClient : INotificationApiClient
     }
     
 
-    public void SendEmail(string userId)
+    public void SendEmail(string userId, SendEmailBody body)
     {
          var baseUrl = _config.ApiUrl;
          
@@ -44,7 +44,6 @@ public class NotificationApiClient : INotificationApiClient
          var request = new RestRequest($"/api/Emails?UserId={userId}", Method.Post);
          request.AddHeader("x-api-key", _config.ApiKey);
          request.AddHeader("Content-Type", "application/json");
-         var body = new SendEmailBody($"Cześć dziękujemy za rejestrację!", "Hello there!");
          request.AddJsonBody(body);
          var response = client.Execute(request);
 
@@ -64,8 +63,32 @@ public class NotificationApiClient : INotificationApiClient
         throw new NotImplementedException();
     }
 
-    public Task SendSms(string userId)
+    public void SendSms(string userId, string body)
     {
-        throw new NotImplementedException();
+        var baseUrl = _config.ApiUrl;
+         
+        var options = new RestClientOptions(baseUrl)
+        {
+            MaxTimeout = -1,
+        };
+        var client = new RestClient(options);
+        var request = new RestRequest($"/api/Smses?UserId={userId}", Method.Post);
+        //request.AddHeader("x-api-key", _config.ApiKey);
+        request.AddHeader("Content-Type", "application/json");
+        request.AddJsonBody(new
+        {
+            Content = body
+        });
+        var response = client.Execute(request);
+
+        _logger.LogInformation($"Request fired to {baseUrl}");
+        _logger.LogInformation(response.StatusCode.ToString());
+        if (!response.IsSuccessStatusCode)
+        {
+            _logger.LogInformation(response.ErrorMessage);
+            throw new RequestFailedException($"sms to user {userId} failed");
+        }
+         
+        _logger.LogInformation($"sms sent");
     }
 }

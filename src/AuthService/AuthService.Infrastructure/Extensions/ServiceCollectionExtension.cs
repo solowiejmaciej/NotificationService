@@ -30,7 +30,7 @@ public static class ServiceCollectionExtension
         }));
         
         //Db
-        services.AddDbContext<AuthDbContext>(options =>
+        services.AddDbContext<AuthServiceDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("App"));
         });
@@ -48,6 +48,7 @@ public static class ServiceCollectionExtension
         services.Decorate<IUsersRepository, CachedUsersRepository>();
 
         services.AddScoped<IRefreshTokensRepository,RefreshTokensRepository>();
+        services.AddScoped<IConfirmationCodesRepository,ConfirmationCodesRepository>();
     }
     
 }

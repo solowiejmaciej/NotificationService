@@ -14,5 +14,7 @@ public interface IUsersRepository : IDisposable
     Task<bool> CanConnectAsync(CancellationToken cancellationToken = default);
     bool IsEmailInUse(string email);
     Task<ApplicationUser?> GetByEmailAsync(string email, CancellationToken cancellationToken = default);
-    
+
+    Task ConfirmEmailAsync(string currentUserId, CancellationToken cancellationToken = default);
+    Task ConfirmPhoneNumberAsync(string currentUserId, CancellationToken cancellationToken = default);
 }

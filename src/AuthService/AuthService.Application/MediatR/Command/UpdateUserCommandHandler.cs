@@ -1,6 +1,4 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
-using AuthService.Application.ApplicationUserContext;
+﻿using AuthService.Application.ApplicationUserContext;
 using AuthService.Application.Dtos;
 using AuthService.Domain.Interfaces;
 using AutoMapper;
@@ -33,7 +31,8 @@ namespace AuthService.Application.MediatR.Command
             if (user is null) throw new NotFoundException($"User with id {request.Id} not found");
 
             var currentUser = _userContext.GetCurrentUser();
-            var isAdmin = currentUser.Role == "Admin";
+            //var isAdmin = currentUser.Role == "Admin";
+            var isAdmin = false;
             if (!isAdmin && currentUser.Id != request.Id)
             {
                 throw new AccessForbiddenException($"User {currentUser.Id} tried to edit {request.Id} user ");

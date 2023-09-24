@@ -13,13 +13,53 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="93bcf5f0-dc27-4a4c-9f68-4c845652084e" name="Changes" comment="cleanup">
+    <list default="true" id="93bcf5f0-dc27-4a4c-9f68-4c845652084e" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Controllers/AccountController.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Models/QueryParameters/ConfirmationCode/VerifyCodeQueryParams.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/MediatR/Command/SendConfirmationCodeCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/MediatR/Command/VerifyConfirmationCodeCommandHandler.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Entities/ConfirmationCode.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Interfaces/IConfirmationCodesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/ConfirmationCodesRepository.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/EventsConsumer/Consumers/SendConfirmationCodeEventConsumer.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shared/Enums/ENotificationChannel.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shared/Enums/EStatus.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shared/Events/Event.cs" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Shared/Events/SendConfirmationCodeEvent.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/.idea.MyMovies/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/.idea.MyMovies/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.Development.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/certi/privateKey.pem" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/certi/privateKey.pem" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Models/AppSettings/JWTSettings.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Models/AppSettings/JWTSettings.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/MyMovies.sln.DotSettings.user" beforeDir="false" afterPath="$PROJECT_DIR$/MyMovies.sln.DotSettings.user" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/AuthService.Api.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/AuthService.Api.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Controllers/AuthController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Controllers/AuthController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Controllers/UserController.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Controllers/UserController.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Api/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Api/certi/privateKey.pem" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/ApplicationUserContext/CurrentUser.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/ApplicationUserContext/CurrentUser.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/ApplicationUserContext/UserContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/ApplicationUserContext/UserContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/MediatR/Command/UpdateUserCommandHandler.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/MediatR/Command/UpdateUserCommandHandler.cs" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Services/JWTManager.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Application/Services/JWTManager.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/AuthService.Domain.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/AuthService.Domain.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Interfaces/IEventPublisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Interfaces/IEventPublisher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Interfaces/IUsersRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/Interfaces/IUsersRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/obj/Debug/net7.0/AuthService.Domain.csproj.FileListAbsolute.txt" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Domain/obj/Debug/net7.0/AuthService.Domain.csproj.FileListAbsolute.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/AuthService.Infrastructure.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/AuthService.Infrastructure.csproj" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Extensions/ServiceCollectionExtension.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Extensions/ServiceCollectionExtension.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Persistent/AuthDbContext.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Persistent/AuthServiceDbContext.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/CachedUsersRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/CachedUsersRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/RefreshTokensRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/RefreshTokensRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/UsersRepository.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Repositories/UsersRepository.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Services/CacheService.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Services/CacheService.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Services/EventPublisher.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/AuthService/AuthService.Infrastructure/Services/EventPublisher.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventsConsumer/Consumers/UserCreatedConsumer.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventsConsumer/Consumers/UserCreatedConsumer.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventsConsumer/Extensions/Events/ServiceCollectionExtensions.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventsConsumer/Extensions/Events/ServiceCollectionExtensions.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventsConsumer/NotificationApiClient.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventsConsumer/NotificationApiClient.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventsConsumer/appsettings.Development.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventsConsumer/appsettings.Development.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventsConsumer/appsettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventsConsumer/appsettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NotificationService/Hangfire/Jobs/EmailDeliveryProcessingJob.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/NotificationService/Hangfire/Jobs/EmailDeliveryProcessingJob.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NotificationService/Properties/launchSettings.json" beforeDir="false" afterPath="$PROJECT_DIR$/src/NotificationService/Properties/launchSettings.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NotificationService/obj/Debug/net7.0/NotificationService.csproj.AssemblyReference.cache" beforeDir="false" afterPath="$PROJECT_DIR$/src/NotificationService/obj/Debug/net7.0/NotificationService.csproj.AssemblyReference.cache" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/NotificationService/obj/rider.project.restore.info" beforeDir="false" afterPath="$PROJECT_DIR$/src/NotificationService/obj/rider.project.restore.info" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shared/Events/UserCreatedEvent.cs" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shared/Events/UserCreatedEvent.cs" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Shared/Shared.csproj" beforeDir="false" afterPath="$PROJECT_DIR$/src/Shared/Shared.csproj" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,6 +106,7 @@
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Api/Models/Validation/RequestValidation/AddUserRequestValidation.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Api/Program.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Api/appsettings.json" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Api/obj/Debug/net7.0/.NETCoreApp,Version=v7.0.AssemblyAttributes.cs" root0="SKIP_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Application/Extensions/ServiceCollectionExtension.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Application/Health/CacheDbHealthCheck.cs" root0="FORCE_HIGHLIGHTING" />
     <setting file="file://$PROJECT_DIR$/src/AuthService/AuthService.Application/Health/DatabaseHealthCheck.cs" root0="FORCE_HIGHLIGHTING" />
@@ -86,7 +127,9 @@
   &quot;associatedIndex&quot;: 6
 }</component>
   <component name="ProjectId" id="2VlKHhdz2hZUFaiQKGFwrzEYsqw" />
-  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -96,7 +139,6 @@
     "ASKED_SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
-    "SHARE_PROJECT_CONFIGURATION_FILES": "true",
     "WebServerToolWindowFactoryState": "false",
     "git-widget-placeholder": "dev",
     "node.js.detected.package.eslint": "true",
@@ -107,6 +149,9 @@
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "redis"
+    ],
     "rider.external.source.directories": [
       "/Users/solow/Library/Application Support/JetBrains/Rider2023.2/resharper-host/DecompilerCache",
       "/Users/solow/Library/Application Support/JetBrains/Rider2023.2/resharper-host/SourcesCache",
@@ -114,7 +159,7 @@
     ]
   }
 }]]></component>
-  <component name="RunManager" selected=".NET Launch Settings Profile.AuthService.Api: https">
+  <component name="RunManager" selected=".NET Launch Settings Profile.EventsConsumer: https">
     <configuration name="AuthService.Api" type="DotNetProject" factoryName=".NET Project">
       <option name="EXE_PATH" value="" />
       <option name="PROGRAM_PARAMETERS" value="" />
@@ -243,7 +288,7 @@
       <updated>1695405140973</updated>
       <workItem from="1695405144220" duration="1196000" />
       <workItem from="1695406658724" duration="506000" />
-      <workItem from="1695407177984" duration="1687000" />
+      <workItem from="1695407177984" duration="13888000" />
     </task>
     <task id="LOCAL-00001" summary="init">
       <option name="closed" value="true" />
@@ -277,7 +322,15 @@
       <option name="project" value="LOCAL" />
       <updated>1695408389760</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="privateKey moved to appsettings">
+      <option name="closed" value="true" />
+      <created>1695408965665</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1695408965665</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -299,7 +352,15 @@
     <option name="CLEAR_INITIAL_COMMIT_MESSAGE" value="true" />
     <MESSAGE value="init" />
     <MESSAGE value="cleanup" />
-    <option name="LAST_COMMIT_MESSAGE" value="cleanup" />
+    <MESSAGE value="privateKey moved to appsettings" />
+    <option name="LAST_COMMIT_MESSAGE" value="privateKey moved to appsettings" />
+  </component>
+  <component name="XDebuggerManager">
+    <pin-to-top-manager>
+      <pinned-members>
+        <PinnedItemInfo parentTag="Type#Shared.Events.Event" memberName="CreatedAt" />
+      </pinned-members>
+    </pin-to-top-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

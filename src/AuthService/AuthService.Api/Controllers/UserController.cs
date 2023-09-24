@@ -1,17 +1,14 @@
-﻿
-using System.Threading.Tasks;
-using AuthService.Api.Models.QueryParameters.GetAll;
+﻿using AuthService.Api.Models.QueryParameters.GetAll;
 using AuthService.Application.MediatR.Command;
 using AuthService.Application.MediatR.Query;
 using AuthService.Models.Requests.Update;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
-using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
-namespace AuthService.Controllers
+namespace AuthService.Api.Controllers
 {
-    [EnableCors("apiCorsPolicy")]
+    //[EnableCors("apiCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class UserController : ControllerBase

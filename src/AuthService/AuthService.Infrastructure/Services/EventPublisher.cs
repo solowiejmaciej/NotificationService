@@ -25,5 +25,15 @@ public class EventPublisher : IEventPublisher
             UserId = user.Id,
         }, cancellationToken);
     }
+    
+    public async Task PublishSendConfirmationCodeEventAsync(ConfirmationCode confirmationCode, string userId, CancellationToken cancellationToken = default)
+    {
+        await _publishEndpoint.Publish<SendConfirmationCodeEvent>( new SendConfirmationCodeEvent
+        {
+            Code = confirmationCode.Code, 
+            UserId = userId,
+            NotificationChannel = confirmationCode.NotificationChannel,
+        }, cancellationToken);
+    }
 }
 

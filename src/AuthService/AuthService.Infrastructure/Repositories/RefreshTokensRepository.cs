@@ -9,45 +9,45 @@ namespace AuthService.Infrastructure.Repositories;
 
 public class RefreshTokensRepository : IRefreshTokensRepository
 {
-    private readonly AuthDbContext _dbContext;
+    private readonly AuthServiceDbContext _serviceDbContext;
 
     public RefreshTokensRepository(
-        AuthDbContext dbContext
+        AuthServiceDbContext serviceDbContext
         )
     {
-        _dbContext = dbContext;
+        _serviceDbContext = serviceDbContext;
     }
     public async Task<RefreshToken?> GetByJitAsync(string jit, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.RefreshTokens.FirstOrDefaultAsync(t => t.JwtId == jit, cancellationToken);
+        return await _serviceDbContext.RefreshTokens.FirstOrDefaultAsync(t => t.JwtId == jit, cancellationToken);
     }
 
     public async Task<RefreshToken?> GetByValueAsync(string value, CancellationToken cancellationToken = default)
     {
-        return await _dbContext.RefreshTokens.FirstOrDefaultAsync(t => t.Token == value, cancellationToken);
+        return await _serviceDbContext.RefreshTokens.FirstOrDefaultAsync(t => t.Token == value, cancellationToken);
     }
 
     public async Task SetUsedAsync(RefreshToken value, CancellationToken cancellationToken = default)
     {
         value.Used = true;
-        _dbContext.RefreshTokens.Update(value);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        _serviceDbContext.RefreshTokens.Update(value);
+        await _serviceDbContext.SaveChangesAsync(cancellationToken);
     }
 
     public async Task SaveAsync(CancellationToken cancellationToken = default)
     {
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _serviceDbContext.SaveChangesAsync(cancellationToken);
     }
 
     public Task Save()
     {
-        _dbContext.SaveChanges();
+        _serviceDbContext.SaveChanges();
         return Task.CompletedTask;
     }
 
     public async Task AddAsync(RefreshToken refreshToken, CancellationToken cancellationToken = default)
     {
-        await _dbContext.AddAsync(refreshToken, cancellationToken);
-        await _dbContext.SaveChangesAsync(cancellationToken);
+        await _serviceDbContext.AddAsync(refreshToken, cancellationToken);
+        await _serviceDbContext.SaveChangesAsync(cancellationToken);
     }
 }

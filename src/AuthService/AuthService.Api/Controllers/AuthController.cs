@@ -10,7 +10,7 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace AuthService.Api.Controllers
 {
-    [EnableCors("apiCorsPolicy")]
+    //[EnableCors("apiCorsPolicy")]
     [Route("api/[controller]")]
     [ApiController]
     public class AuthController : ControllerBase

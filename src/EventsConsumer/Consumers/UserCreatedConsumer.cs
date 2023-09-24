@@ -1,10 +1,8 @@
-﻿using System;
-using System.Threading.Tasks;
+﻿using EventsConsumer.Models.Body;
 using MassTransit;
-using Microsoft.Extensions.Logging;
 using Shared.Events;
 
-namespace EventsConsumer;
+namespace EventsConsumer.Consumers;
 
 public class UserCreatedConsumer : IConsumer<UserCreatedEvent>
 {
@@ -25,9 +23,10 @@ public class UserCreatedConsumer : IConsumer<UserCreatedEvent>
     {
         var userCreated = context.Message;
         _logger.LogInformation("Trying to send welcome email for user {UserId} ", userCreated.UserId);
+        var body = new SendEmailBody($"Cześć dziękujemy za rejestrację!", "Hello there!");
         try
         {
-            _client.SendEmail(userCreated.UserId);
+            _client.SendEmail(userCreated.UserId, body);
         }
         catch (Exception badRequestException)
         {

@@ -1,6 +1,8 @@
-﻿namespace Shared.Events;
+﻿using MassTransit;
 
-public class UserCreatedEvent
+namespace Shared.Events;
+
+public class UserCreatedEvent : Event
 {
     public string Firstname { get; set; }
     public string Surname { get; set; }

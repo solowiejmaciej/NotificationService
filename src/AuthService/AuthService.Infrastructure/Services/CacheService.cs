@@ -11,7 +11,7 @@ namespace AuthService.Infrastructure.Services;
 
 public class CacheService : ICacheService
 {
-    private IDistributedCache _distributedCache;
+    private readonly IDistributedCache _distributedCache;
 
     public CacheService(IDistributedCache distributedCache)
     {

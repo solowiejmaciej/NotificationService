@@ -23,9 +23,9 @@ namespace AuthService.Application.ApplicationUserContext
 
             var userName = user.Identity.Name!;
             var userId = user.FindFirst(c => c.Type == ClaimTypes.NameIdentifier)!.Value;
-            var userRole = user.FindFirst(c => c.Type == ClaimTypes.Role)!.Value;
+            //var userRole = user.FindFirst(c => c.Type == ClaimTypes.Role)!.Value;
 
-            return new CurrentUser(userId, userName, userRole);
+            return new CurrentUser(userId, userName);
         }
         
     }

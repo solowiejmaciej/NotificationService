@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore;
 
 namespace AuthService.Infrastructure.Persistent;
 
-public class AuthDbContext : IdentityDbContext<ApplicationUser>
+public class AuthServiceDbContext : IdentityDbContext<ApplicationUser>
 {
-    public AuthDbContext(DbContextOptions<AuthDbContext> options) : base(options)
+    public AuthServiceDbContext(DbContextOptions<AuthServiceDbContext> options) : base(options)
     {
     }
     public DbSet<RefreshToken> RefreshTokens { get; set; }

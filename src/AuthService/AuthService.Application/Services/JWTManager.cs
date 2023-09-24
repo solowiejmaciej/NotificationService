@@ -55,7 +55,7 @@ public class JwtManager : IJwtManager
             {
                 new Claim(ClaimTypes.NameIdentifier, dbUser.Id),
                 new Claim(ClaimTypes.Name, dbUser.Email!),
-                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString())
+                new Claim(JwtRegisteredClaimNames.Jti, Guid.NewGuid().ToString()),
             };
 
         string rsaPrivateKey = _jwtAppSettings.Value.PrivateKey;

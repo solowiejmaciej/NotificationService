@@ -1,4 +1,5 @@
-﻿using EventsConsumer.Models.AppSettings;
+﻿using EventsConsumer.Consumers;
+using EventsConsumer.Models.AppSettings;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -27,6 +28,7 @@ namespace EventsConsumer.Extensions.Events
             services.AddMassTransit(mt => mt.AddMassTransit(x =>
             {
                 x.AddConsumer<UserCreatedConsumer>(); // Register the consumer
+                x.AddConsumer<SendConfirmationCodeEventConsumer>(); // Register the consumer
                 x.AddBus(context => Bus.Factory.CreateUsingRabbitMq(cfg =>
                 {
                     cfg.Host(rabbitConfig.Url, "/", c =>
@@ -37,6 +39,7 @@ namespace EventsConsumer.Extensions.Events
                     cfg.ReceiveEndpoint(RabbitQueues.NOTIFICATIONS_QUEUE, endpoint =>
                     {
                         endpoint.ConfigureConsumer<UserCreatedConsumer>(context);
+                        endpoint.ConfigureConsumer<SendConfirmationCodeEventConsumer>(context);
                     });
                     
                 }));
