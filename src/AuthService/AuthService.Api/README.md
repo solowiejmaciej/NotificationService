@@ -7,9 +7,10 @@ user across whole system
 ## Features
 
 - Cache
-- Azure Service Bus
+- RabbitMQ
 - JWT Auth 
 - Refresh Tokens
+- Email/Phone Confirmation
 
 
 # Built With
@@ -18,6 +19,7 @@ user across whole system
 * ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
 * ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=azure-devops&logoColor=white)  
 * ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)  
+* ![RabbitMQ](https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white)  
 * ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Sever-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 
 ## Auth

@@ -20,11 +20,6 @@ API that allows users to send Notifications and manage them
 * ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)  
 * ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Sever-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 
-
-# System Architecture
-
-![Screenshot](https://raw.githubusercontent.com/solowiejmaciej/NotificationService/master/ArchitectureDiagram.drawio.png)
-
 ## Hangfire
 
 | Job Name        | Cron        |
