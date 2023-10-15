@@ -1,13 +1,13 @@
-﻿using System;
-using System.Threading;
-using System.Threading.Tasks;
+﻿#region
+
 using AuthService.Domain.Interfaces;
-using Newtonsoft.Json;
 using Microsoft.Extensions.Caching.Distributed;
+using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 
-namespace AuthService.Infrastructure.Services;
+#endregion
 
+namespace AuthService.Infrastructure.Services;
 
 public class CacheService : ICacheService
 {
@@ -22,10 +22,7 @@ public class CacheService : ICacheService
         CancellationToken cancellationToken = default)
     {
         var value = await _distributedCache.GetStringAsync(key, cancellationToken);
-        if (!string.IsNullOrEmpty(value))
-        {
-            return JsonSerializer.Deserialize<T>(value);
-        }
+        if (!string.IsNullOrEmpty(value)) return JsonSerializer.Deserialize<T>(value);
         return default;
     }
 
@@ -36,14 +33,15 @@ public class CacheService : ICacheService
         await _distributedCache.SetStringAsync(
             key,
             JsonConvert.SerializeObject(value),
-            new DistributedCacheEntryOptions()
+            new DistributedCacheEntryOptions
             {
                 AbsoluteExpirationRelativeToNow = expiryTime
             },
             cancellationToken
         );
     }
-    public async Task RemoveDataAsync (string key, CancellationToken cancellationToken = default)
+
+    public async Task RemoveDataAsync(string key, CancellationToken cancellationToken = default)
     {
         await _distributedCache.RemoveAsync(key, cancellationToken);
     }

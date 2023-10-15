@@ -14,7 +14,7 @@ using Notification = Google.Apis.FirebaseCloudMessaging.v1.Data.Notification;
 
 namespace NotificationService.Hangfire.Jobs
 {
-    public class PushDeliveryProcessingJob
+    public sealed class PushDeliveryProcessingJob
     {
         private readonly ILogger<PushDeliveryProcessingJob> _logger;
         private readonly IOptions<GoogleFirebaseSettings> _config;

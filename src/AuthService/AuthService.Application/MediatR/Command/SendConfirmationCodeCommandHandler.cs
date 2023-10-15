@@ -1,8 +1,12 @@
+#region
+
 using AuthService.Application.ApplicationUserContext;
 using AuthService.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Shared.Enums;
+
+#endregion
 
 namespace AuthService.Application.MediatR.Command;
 
@@ -18,25 +22,29 @@ public class SendConfirmationCodeCommandHandler : IRequestHandler<SendConfirmati
         IConfirmationCodesRepository confirmationCodesRepository,
         IUserContext userContext,
         IEventPublisher eventPublisher
-        )
+    )
     {
         _logger = logger;
         _confirmationCodesRepository = confirmationCodesRepository;
         _userContext = userContext;
         _eventPublisher = eventPublisher;
     }
+
     public async Task Handle(SendConfirmationCodeCommand request, CancellationToken cancellationToken)
     {
         var currentUser = _userContext.GetCurrentUser();
         switch (request.NotificationChannel)
         {
             case ENotificationChannel.Email:
-                var emailCode = await _confirmationCodesRepository.GenerateCodeAsync(ENotificationChannel.Email, currentUser.Id);
+                var emailCode =
+                    await _confirmationCodesRepository.GenerateCodeAsync(ENotificationChannel.Email, currentUser.Id);
                 _logger.LogInformation("Sending email confirmation code, {}", emailCode.Code);
-                await _eventPublisher.PublishSendConfirmationCodeEventAsync(emailCode, currentUser.Id, cancellationToken);
+                await _eventPublisher.PublishSendConfirmationCodeEventAsync(emailCode, currentUser.Id,
+                    cancellationToken);
                 break;
             case ENotificationChannel.SMS:
-                var smsCode = await _confirmationCodesRepository.GenerateCodeAsync(ENotificationChannel.SMS, currentUser.Id);
+                var smsCode =
+                    await _confirmationCodesRepository.GenerateCodeAsync(ENotificationChannel.SMS, currentUser.Id);
                 _logger.LogInformation("Sending sms confirmation code, {}", smsCode.Code);
                 await _eventPublisher.PublishSendConfirmationCodeEventAsync(smsCode, currentUser.Id, cancellationToken);
                 break;
@@ -45,7 +53,6 @@ public class SendConfirmationCodeCommandHandler : IRequestHandler<SendConfirmati
         }
     }
 }
-
 
 public class SendConfirmationCodeCommand : IRequest
 {

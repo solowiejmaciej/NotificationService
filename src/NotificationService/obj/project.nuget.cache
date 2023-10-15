@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "H2P7Pz/1JMjY/j6YciOlMw+touhwbMFm4NDvsgja/fkbgKc2Quu1XagDlZdrorvfJwjuxKGlcKUrIOC4vdFZww==",
+  "dgSpecHash": "D7SIOQ+L39obz3dibOmwOQiqXFNgahtTvc9J4kBKEe2pV8Kv6VEH5p9Ae0NEmYOp72wCOp4907aTgnLU3gCZ4Q==",
   "success": true,
-  "projectFilePath": "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
+  "projectFilePath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
   "expectedPackageFiles": [
     "/Users/solow/.nuget/packages/aspnetcore.healthchecks.ui.client/6.0.5/aspnetcore.healthchecks.ui.client.6.0.5.nupkg.sha512",
     "/Users/solow/.nuget/packages/aspnetcore.healthchecks.ui.core/6.0.5/aspnetcore.healthchecks.ui.core.6.0.5.nupkg.sha512",

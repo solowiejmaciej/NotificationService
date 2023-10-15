@@ -7,10 +7,9 @@ using NotificationService.MediatR.Handlers.GetAll;
 using NotificationService.MediatR.Handlers.GetById;
 using NotificationService.Models.QueryParameters.Create;
 using NotificationService.Models.QueryParameters.GetAll;
-using NotificationService.Models.Requests;
 using NotificationService.Models.Requests.Add;
 
-namespace NotificationService.Controllers.Notifications
+namespace NotificationService.Controllers
 {
     [ApiController]
     [Route("api/[controller]")]

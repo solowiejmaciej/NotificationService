@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj": {}
+    "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj": {}
   },
   "projects": {
-    "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj": {
+    "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
+        "projectUniqueName": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
         "projectName": "NotificationService",
-        "projectPath": "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
+        "projectPath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/NotificationService.csproj",
         "packagesPath": "/Users/solow/.nuget/packages/",
-        "outputPath": "/Users/solow/Developer/MoviesAPI - Dev/src/NotificationService/obj/",
+        "outputPath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/NotificationService/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/solow/.nuget/NuGet/NuGet.Config"
@@ -26,8 +26,8 @@
           "net7.0": {
             "targetAlias": "net7.0",
             "projectReferences": {
-              "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/Shared.csproj": {
-                "projectPath": "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/Shared.csproj"
+              "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/Shared.csproj": {
+                "projectPath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/Shared.csproj"
               }
             }
           }
@@ -162,14 +162,14 @@
         }
       }
     },
-    "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/Shared.csproj": {
+    "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/Shared.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/Shared.csproj",
+        "projectUniqueName": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/Shared.csproj",
         "projectName": "Shared",
-        "projectPath": "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/Shared.csproj",
+        "projectPath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/Shared.csproj",
         "packagesPath": "/Users/solow/.nuget/packages/",
-        "outputPath": "/Users/solow/Developer/MoviesAPI - Dev/src/Shared/obj/",
+        "outputPath": "/Users/solow/Developer/dotnet/MoviesAPI - Dev/src/Shared/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/solow/.nuget/NuGet/NuGet.Config"

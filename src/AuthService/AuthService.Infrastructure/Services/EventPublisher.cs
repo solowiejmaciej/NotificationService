@@ -1,9 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿#region
+
 using AuthService.Domain.Entities;
 using AuthService.Domain.Interfaces;
+using EventsConsumer.Events;
 using MassTransit;
-using Shared.Events;
+
+#endregion
 
 namespace AuthService.Infrastructure.Services;
 
@@ -18,22 +20,22 @@ public class EventPublisher : IEventPublisher
 
     public async Task PublishUserCreatedEventAsync(ApplicationUser user, CancellationToken cancellationToken = default)
     {
-        await _publishEndpoint.Publish<UserCreatedEvent>( new UserCreatedEvent
+        await _publishEndpoint.Publish(new UserCreatedEvent
         {
-            Firstname = user.Firstname, 
-            Surname = user.Surname, 
-            UserId = user.Id,
+            Firstname = user.Firstname,
+            Surname = user.Surname,
+            UserId = user.Id
         }, cancellationToken);
     }
-    
-    public async Task PublishSendConfirmationCodeEventAsync(ConfirmationCode confirmationCode, string userId, CancellationToken cancellationToken = default)
+
+    public async Task PublishSendConfirmationCodeEventAsync(ConfirmationCode confirmationCode, string userId,
+        CancellationToken cancellationToken = default)
     {
-        await _publishEndpoint.Publish<SendConfirmationCodeEvent>( new SendConfirmationCodeEvent
+        await _publishEndpoint.Publish(new SendConfirmationCodeEvent
         {
-            Code = confirmationCode.Code, 
+            Code = confirmationCode.Code,
             UserId = userId,
-            NotificationChannel = confirmationCode.NotificationChannel,
+            NotificationChannel = confirmationCode.NotificationChannel
         }, cancellationToken);
     }
 }
-

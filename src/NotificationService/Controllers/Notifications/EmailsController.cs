@@ -9,7 +9,7 @@ using NotificationService.Models.QueryParameters.Create;
 using NotificationService.Models.QueryParameters.GetAll;
 using NotificationService.Models.Requests;
 
-namespace NotificationService.Controllers.Notifications
+namespace NotificationService.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]

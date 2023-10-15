@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Shared.Exceptions;
 
-namespace Shared.Exceptions
+public class UnprocessableContentException : Exception
 {
-    public class UnprocessableContentException : Exception
+    public UnprocessableContentException(string message) : base(message)
     {
-        public UnprocessableContentException(string message) : base(message)
-        {
-        }
     }
 }

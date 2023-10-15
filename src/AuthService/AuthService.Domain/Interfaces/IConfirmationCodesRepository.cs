@@ -1,5 +1,9 @@
+#region
+
 using AuthService.Domain.Entities;
 using Shared.Enums;
+
+#endregion
 
 namespace AuthService.Domain.Interfaces;
 

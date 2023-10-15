@@ -1,9 +1,11 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿#region
+
 using AuthService.Domain.Entities;
 using AuthService.Domain.Interfaces;
 using AuthService.Infrastructure.Persistent;
 using Microsoft.EntityFrameworkCore;
+
+#endregion
 
 namespace AuthService.Infrastructure.Repositories;
 
@@ -13,10 +15,11 @@ public class RefreshTokensRepository : IRefreshTokensRepository
 
     public RefreshTokensRepository(
         AuthServiceDbContext serviceDbContext
-        )
+    )
     {
         _serviceDbContext = serviceDbContext;
     }
+
     public async Task<RefreshToken?> GetByJitAsync(string jit, CancellationToken cancellationToken = default)
     {
         return await _serviceDbContext.RefreshTokens.FirstOrDefaultAsync(t => t.JwtId == jit, cancellationToken);

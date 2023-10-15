@@ -10,11 +10,17 @@ using Shared.Exceptions;
 namespace EventsConsumer;
 
 
+public record SendResult
+{
+    public required bool IsSuccessful { get; set; }
+    public required string? ErrorMessage { get; set; }
+}
+
 public interface INotificationApiClient
 {
     public void SendEmail(string userId, SendEmailBody body);
     public Task SendPush(string userId);
-    public void SendSms(string userId, string body);
+    public SendResult SendSms(string userId, string body);
 }
 
 public class NotificationApiClient : INotificationApiClient
@@ -63,10 +69,9 @@ public class NotificationApiClient : INotificationApiClient
         throw new NotImplementedException();
     }
 
-    public void SendSms(string userId, string body)
+    public SendResult SendSms(string userId, string body)
     {
         var baseUrl = _config.ApiUrl;
-         
         var options = new RestClientOptions(baseUrl)
         {
             MaxTimeout = -1,
@@ -82,13 +87,22 @@ public class NotificationApiClient : INotificationApiClient
         var response = client.Execute(request);
 
         _logger.LogInformation($"Request fired to {baseUrl}");
-        _logger.LogInformation(response.StatusCode.ToString());
         if (!response.IsSuccessStatusCode)
         {
-            _logger.LogInformation(response.ErrorMessage);
-            throw new RequestFailedException($"sms to user {userId} failed");
+            _logger.LogWarning($"Sms failed");
+            _logger.LogInformation(response.ErrorException.Message);
+            return new SendResult()
+            {
+                IsSuccessful = false,
+                ErrorMessage = response.ErrorException.Message
+            };
         }
          
-        _logger.LogInformation($"sms sent");
+        _logger.LogInformation($"Sms sent");
+        return new SendResult()
+        {
+            IsSuccessful = true,
+            ErrorMessage = string.Empty
+        };
     }
 }

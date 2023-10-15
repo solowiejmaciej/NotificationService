@@ -42,7 +42,6 @@ namespace NotificationService.Extensions.Notifications
             services.AddScoped<ISmsRepository, SmsRepository>();
             services.Decorate<ISmsRepository, CachedSmsRepository>();
             
-            
             //Services
             services.AddScoped<IRecipientService, RecipientService>();
 

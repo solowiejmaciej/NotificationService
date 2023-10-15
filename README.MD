@@ -1,5 +1,5 @@
 
-# Movies API
+# CheapFreak
 
 ## Features
 
@@ -7,7 +7,7 @@
 - Microservices
 - Background jobs
 - Cache
-- Azure Service Bus
+- RabbitMq
 - JWT Auth
 - Refresh Tokens
 - Email sending with SMTP

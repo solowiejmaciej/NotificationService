@@ -1,11 +1,8 @@
-﻿using System;
+﻿namespace Shared.Exceptions;
 
-namespace Shared.Exceptions
+public class RequestFailedException : Exception
 {
-    public class RequestFailedException : Exception
+    public RequestFailedException(string message) : base(message)
     {
-        public RequestFailedException(string message) : base(message)
-        {
-        }
     }
 }

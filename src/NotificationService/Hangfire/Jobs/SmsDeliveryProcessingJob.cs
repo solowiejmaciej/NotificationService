@@ -11,7 +11,7 @@ using RestSharp;
 
 namespace NotificationService.Hangfire.Jobs;
 
-public class SmsDeliveryProcessingJob
+public sealed class SmsDeliveryProcessingJob
 {
     private readonly ILogger<SmsDeliveryProcessingJob> _logger;
     private readonly ISmsRepository _repo;

@@ -12,5 +12,6 @@ namespace NotificationService.Entities
         public DbSet<EmailNotification> EmailsNotifications { get; set; }
         public DbSet<PushNotification> PushNotifications { get; set; }
         public DbSet<SmsNotification> SmsNotifications { get; set; }
+        
     }
 }

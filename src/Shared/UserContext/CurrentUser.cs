@@ -1,16 +1,15 @@
-﻿namespace Shared.UserContext
-{
-    public class CurrentUser
-    {
-        public CurrentUser(string id, string login, string role)
-        {
-            Id = id;
-            Login = login;
-            Role = role;
-        }
+﻿namespace Shared.UserContext;
 
-        public string Id { get; set; }
-        public string Login { get; set; }
-        public string Role { get; set; }
+public class CurrentUser
+{
+    public CurrentUser(string id, string login, string role)
+    {
+        Id = id;
+        Login = login;
+        Role = role;
     }
+
+    public string Id { get; set; }
+    public string Login { get; set; }
+    public string Role { get; set; }
 }

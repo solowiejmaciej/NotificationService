@@ -1,4 +1,3 @@
-
 # AuthService API
 
 Responsible for users identity, generates jwt and refresh tokens that are
@@ -8,36 +7,35 @@ user across whole system
 
 - Cache
 - RabbitMQ
-- JWT Auth 
+- JWT Auth
 - Refresh Tokens
 - Email/Phone Confirmation
 
-
 # Built With
+
 * ![.Net](https://img.shields.io/badge/.NET-5C2D91?style=for-the-badge&logo=.net&logoColor=white)
 * ![Redis](https://img.shields.io/badge/redis-%23DD0031.svg?style=for-the-badge&logo=redis&logoColor=white)
 * ![Docker](https://img.shields.io/badge/docker-%230db7ed.svg?style=for-the-badge&logo=docker&logoColor=white)
-* ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=azure-devops&logoColor=white)  
-* ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)  
-* ![RabbitMQ](https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white)  
+* ![Azure](https://img.shields.io/badge/azure-%230072C6.svg?style=for-the-badge&logo=azure-devops&logoColor=white)
+* ![JWT](https://img.shields.io/badge/JWT-black?style=for-the-badge&logo=JSON%20web%20tokens)
+* ![RabbitMQ](https://img.shields.io/badge/rabbitmq-%23FF6600.svg?&style=for-the-badge&logo=rabbitmq&logoColor=white)
 * ![MicrosoftSQLServer](https://img.shields.io/badge/Microsoft%20SQL%20Sever-CC2927?style=for-the-badge&logo=microsoft%20sql%20server&logoColor=white)
 
 ## Auth
-
 
 | Header          | Usage                | Required                    |
 |:----------------|:---------------------|:----------------------------|
 | `x-api-key`     | `Key to the api`     | `Required by every enpoint` |
 | `Authorization` | `Token to auth user` | `Required by every enpoint` |
-                    
-
 
 ## Usage example
 
 ```http
   POST /api/Auth/Register
 ```
+
 #####
+
 ```curl
 curl -X 'POST' \
   'https://localhost:7277/api/Auth/Register' \
@@ -71,10 +69,13 @@ curl -X 'POST' \
 ```
 
 ## Get Users
+
 ```http
   GET /api/Users
 ```
+
 #####
+
 ```curl
 curl -X 'GET' \
   'https://localhost:5001/api/User' \
@@ -82,7 +83,7 @@ curl -X 'GET' \
   -H 'X-Api-Key: youapikey'
 ```
 
-### Response 
+### Response
 
 ```json
 
@@ -112,11 +113,15 @@ curl -X 'GET' \
 }
 
 ```
+
 ## Get User
+
 ```http
   GET /api/Emails/{id}
 ```
+
 #####
+
 ```curl
 curl -X 'GET' \
   'https://localhost:5001/api/User/c4faf909-df71-40b9-8885-2f4c26b63bc7' \
@@ -140,10 +145,13 @@ curl -X 'GET' \
 ```
 
 ## Delete User
+
 ```http
   DELETE /api/User/{id}
 ```
+
 #####
+
 ```curl
 curl -X 'DELETE' \
   'https://localhost:7277/api/User/c4faf909-df71-40b9-8885-2f4c26b63bc7' \

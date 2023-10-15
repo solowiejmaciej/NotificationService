@@ -1,5 +1,8 @@
 ﻿using EventsConsumer.Consumers;
+using EventsConsumer.Events;
+using EventsConsumer.Managers;
 using EventsConsumer.Models.AppSettings;
+using EventsConsumer.Repositories;
 using MassTransit;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -9,11 +12,8 @@ namespace EventsConsumer.Extensions.Events
 {
     public static class ServiceCollectionExtensions
     {
-        public static void AddRabbitMq(this IServiceCollection services)
+        public static void AddRabbitMq(this IServiceCollection services, IConfiguration configuration)
         {
-            var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
 
             var rabbitConfig = new RabbitSettings();
             var rabbitConfigurationSection = configuration.GetSection("RabbitSettings");
@@ -22,7 +22,7 @@ namespace EventsConsumer.Extensions.Events
 
             //services.AddSingleton<IPublishEndpoint>(azureServiceBus);
 
-
+            services.AddScoped<IEventManager<NotificationEvent>, NotificationsEventManager>();
 
 
             services.AddMassTransit(mt => mt.AddMassTransit(x =>
