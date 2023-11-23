@@ -1,8 +1,7 @@
-﻿namespace AuthService.Api.Models.Requests.Login
+﻿namespace AuthService.Api.Models.Requests.Login;
+
+public class UserLoginRequest
 {
-    public class UserLoginRequest
-    {
-        public string Email { get; set; }
-        public string Password { get; set; }
-    }
+    public string Email { get; set; }
+    public string Password { get; set; }
 }

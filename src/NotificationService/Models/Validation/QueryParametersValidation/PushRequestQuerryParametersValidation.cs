@@ -1,14 +1,17 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using NotificationService.Models.QueryParameters.Create;
 
-namespace NotificationService.Models.Validation.QueryParametersValidation
+#endregion
+
+namespace NotificationService.Models.Validation.QueryParametersValidation;
+
+public class PushRequestQuerryParametersValidation : AbstractValidator<PushRequestQuerryParameters>
 {
-    public class PushRequestQuerryParametersValidation : AbstractValidator<PushRequestQuerryParameters>
+    public PushRequestQuerryParametersValidation()
     {
-        public PushRequestQuerryParametersValidation()
-        {
-            RuleFor(e => e.UserId)
-                .NotEmpty();
-        }
+        RuleFor(e => e.UserId)
+            .NotEmpty();
     }
 }

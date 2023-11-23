@@ -1,6 +1,8 @@
-﻿using System.Reflection;
-using Microsoft.Extensions.DependencyInjection;
+﻿#region
+
 using Shared.Middleware;
+
+#endregion
 
 namespace EventsConsumer.Extensions.General;
 
@@ -10,7 +12,7 @@ public static class ServiceCollectionExtension
     {
         services.AddCors(options =>
         {
-            options.AddPolicy(name: "apiCorsPolicy",
+            options.AddPolicy("apiCorsPolicy",
                 builder =>
                 {
                     builder.AllowAnyOrigin()
@@ -21,8 +23,8 @@ public static class ServiceCollectionExtension
                     //.WithMethods("OPTIONS", "GET");
                 });
         });
-        
-        
+
+
         //HealthChecks
         services.AddHealthChecks();
         services.AddLogging();
@@ -31,9 +33,7 @@ public static class ServiceCollectionExtension
         services.AddEndpointsApiExplorer();
 
         services.AddScoped<ErrorHandlingMiddleware>();
-        
-        services.AddScoped<INotificationApiClient , NotificationApiClient>();
 
+        services.AddScoped<INotificationApiClient, NotificationApiClient>();
     }
-    
 }

@@ -1,7 +1,6 @@
-﻿namespace NotificationService.Models.QueryParameters.Create
+﻿namespace NotificationService.Models.QueryParameters.Create;
+
+public class CreateEmailRequestQueryParameters
 {
-    public class CreateEmailRequestQueryParameters
-    {
-        public string UserId { get; set; }
-    }
+    public string UserId { get; set; }
 }

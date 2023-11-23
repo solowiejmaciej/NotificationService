@@ -1,6 +1,9 @@
-using EventsConsumer.Abstractions;
+#region
+
 using EventsConsumer.Events;
 using Shared.Enums;
+
+#endregion
 
 namespace EventsConsumer.Managers;
 

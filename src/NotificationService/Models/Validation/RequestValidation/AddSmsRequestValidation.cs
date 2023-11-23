@@ -1,14 +1,17 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using NotificationService.Models.Requests.Add;
 
-namespace NotificationService.Models.Validation.RequestValidation
+#endregion
+
+namespace NotificationService.Models.Validation.RequestValidation;
+
+public class AddSmsRequestValidation : AbstractValidator<AddSmsRequest>
 {
-    public class AddSmsRequestValidation : AbstractValidator<AddSmsRequest>
+    public AddSmsRequestValidation()
     {
-        public AddSmsRequestValidation()
-        {
-            RuleFor(e => e.Content)
-                .NotEmpty();
-        }
+        RuleFor(e => e.Content)
+            .NotEmpty();
     }
 }

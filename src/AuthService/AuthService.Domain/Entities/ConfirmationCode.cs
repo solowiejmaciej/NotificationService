@@ -1,4 +1,8 @@
+#region
+
 using Shared.Enums;
+
+#endregion
 
 namespace AuthService.Domain.Entities;
 

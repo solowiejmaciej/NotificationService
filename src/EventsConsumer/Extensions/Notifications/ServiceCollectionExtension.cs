@@ -1,7 +1,8 @@
-﻿using EventsConsumer.Models.AppSettings;
-using Microsoft.Extensions.Configuration;
-using Microsoft.Extensions.DependencyInjection;
-using Shared.Middleware;
+﻿#region
+
+using EventsConsumer.Models.AppSettings;
+
+#endregion
 
 namespace EventsConsumer.Extensions.Notifications;
 
@@ -16,8 +17,7 @@ public static class ServiceCollectionExtension
         var notificationApiConfig = configuration.GetSection("NotificationApiCreds");
         services.Configure<NotificationApiSettings>(notificationApiConfig);
 
-        
-        services.AddSingleton<INotificationApiClient , NotificationApiClient>();
+
+        services.AddSingleton<INotificationApiClient, NotificationApiClient>();
     }
-    
 }

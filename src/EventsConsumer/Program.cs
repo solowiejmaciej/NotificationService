@@ -1,11 +1,13 @@
+#region
+
 using EventsConsumer.Extensions.Db;
 using EventsConsumer.Extensions.Events;
 using EventsConsumer.Extensions.General;
 using EventsConsumer.Extensions.Notifications;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.DependencyInjection;
+
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -35,7 +37,7 @@ app.MapControllers();
 app.UseHttpsRedirection();
 
 
-app.MapHealthChecks("/health", new HealthCheckOptions()
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });

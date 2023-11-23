@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-
-namespace AuthService.Application.Models.Pagination;
+﻿namespace AuthService.Application.Models.Pagination;
 
 public class PageResult<T>
 {

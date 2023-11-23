@@ -1,13 +1,17 @@
+#region
+
 using Hangfire;
 using Hangfire.Server;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using NotificationService.Entities.NotificationEntities;
-using Shared.Exceptions;
 using NotificationService.Models;
 using NotificationService.Models.AppSettings;
 using NotificationService.Repositories;
 using RestSharp;
+using Shared.Exceptions;
+
+#endregion
 
 namespace NotificationService.Hangfire.Jobs;
 
@@ -21,7 +25,7 @@ public sealed class SmsDeliveryProcessingJob
         ILogger<SmsDeliveryProcessingJob> logger,
         IOptions<SmsSettings> config,
         ISmsRepository repository
-        )
+    )
     {
         _logger = logger;
         _repo = repository;
@@ -30,8 +34,8 @@ public sealed class SmsDeliveryProcessingJob
 
     private class ErrorResponse
     {
-        public int errorCode { get; set; }
-        public string errorMsg { get; set; }
+        public int errorCode { get; }
+        public string errorMsg { get; }
     }
 
     [AutomaticRetry(Attempts = 0)]
@@ -44,10 +48,7 @@ public sealed class SmsDeliveryProcessingJob
         CancellationToken cancellationToken)
     {
         _logger.LogInformation("SmsDeliveryProcessingJob invoked");
-        if (sms == null)
-        {
-            throw new NullReferenceException("Sms can't be null");
-        }
+        if (sms == null) throw new NullReferenceException("Sms can't be null");
 
         if (recipient == null)
         {
@@ -85,7 +86,7 @@ public sealed class SmsDeliveryProcessingJob
         else
         {
             _repo.ChangeSmsStatus(sms.Id, EStatus.Send);
-            _logger.LogInformation($"Sms sent successfully");
+            _logger.LogInformation("Sms sent successfully");
         }
     }
 }

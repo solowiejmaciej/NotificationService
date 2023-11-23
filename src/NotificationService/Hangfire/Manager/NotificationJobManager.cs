@@ -1,10 +1,13 @@
-﻿using Hangfire;
+﻿#region
+
+using Hangfire;
 using NotificationService.Entities.NotificationEntities;
 using NotificationService.Hangfire.Jobs;
 using NotificationService.Models;
 
-namespace NotificationService.Hangfire.Manager;
+#endregion
 
+namespace NotificationService.Hangfire.Manager;
 
 public interface INotificationJobManager
 {
@@ -27,7 +30,7 @@ public class NotificationJobManager : INotificationJobManager
     public void EnqueueEmailDeliveryDeliveryJob(EmailNotification email, Recipient recipient)
     {
         _backgroundJobClient.Enqueue<EmailDeliveryProcessingJob>(x =>
-             x.Send(
+            x.Send(
                 email,
                 recipient,
                 default!,

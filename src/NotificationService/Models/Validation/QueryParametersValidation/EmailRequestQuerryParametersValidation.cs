@@ -1,15 +1,18 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using NotificationService.Entities;
 using NotificationService.Models.QueryParameters.Create;
 
-namespace NotificationService.Models.Validation.QueryParametersValidation
+#endregion
+
+namespace NotificationService.Models.Validation.QueryParametersValidation;
+
+public class EmailRequestQuerryParametersValidation : AbstractValidator<CreateEmailRequestQueryParameters>
 {
-    public class EmailRequestQuerryParametersValidation : AbstractValidator<CreateEmailRequestQueryParameters>
+    public EmailRequestQuerryParametersValidation(NotificationDbContext dbContext)
     {
-        public EmailRequestQuerryParametersValidation(NotificationDbContext dbContext)
-        {
-            RuleFor(e => e.UserId)
-                .NotEmpty();
-        }
+        RuleFor(e => e.UserId)
+            .NotEmpty();
     }
 }

@@ -1,9 +1,8 @@
-﻿namespace AuthService.Application.Models.AppSettings
+﻿namespace AuthService.Application.Models.AppSettings;
+
+public class RabbitSettings
 {
-    public class RabbitSettings
-    {
-        public string Url { get; set; }
-        public string Username { get; set; }
-        public string Password { get; set; }
-    }
+    public string Url { get; set; }
+    public string Username { get; set; }
+    public string Password { get; set; }
 }

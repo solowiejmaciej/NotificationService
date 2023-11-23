@@ -1,15 +1,18 @@
-﻿using AuthService.Application.Dtos;
+﻿#region
+
+using AuthService.Application.Dtos;
 using AuthService.Domain.Entities;
 using AutoMapper;
 
-namespace AuthService.Application.Mappings
+#endregion
+
+namespace AuthService.Application.Mappings;
+
+public class UserMappingProfile : Profile
 {
-    public class UserMappingProfile : Profile
+    public UserMappingProfile()
     {
-        public UserMappingProfile()
-        {
-            CreateMap<UserDto, ApplicationUser>();
-            CreateMap<ApplicationUser, UserDto>();
-        }
+        CreateMap<UserDto, ApplicationUser>();
+        CreateMap<ApplicationUser, UserDto>();
     }
 }

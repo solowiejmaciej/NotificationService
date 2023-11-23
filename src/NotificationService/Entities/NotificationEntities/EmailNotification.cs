@@ -1,7 +1,6 @@
-﻿namespace NotificationService.Entities.NotificationEntities
+﻿namespace NotificationService.Entities.NotificationEntities;
+
+public class EmailNotification : Notification
 {
-    public class EmailNotification : Notification
-    {
-        public string Subject { get; set; }
-    }
+    public string Subject { get; set; }
 }

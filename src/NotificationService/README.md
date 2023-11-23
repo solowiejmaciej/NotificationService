@@ -1,6 +1,6 @@
-# NotificationService API
+# NotificationService
 
-API that allows users to send Notifications and manage them
+Allows users to send Notifications and manage them
 
 ## Features
 

@@ -32,8 +32,12 @@ public static class ServiceCollectionExtension
                     c.Username(rabbitConfig.Username);
                     c.Password(rabbitConfig.Password);
                 });
+                
+                
                 cfg.ConfigureEndpoints(context);
+                
             });
+            
         }));
 
         //Db

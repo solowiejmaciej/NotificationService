@@ -1,5 +1,8 @@
-﻿using NotificationService.Entities.NotificationEntities;
+﻿#region
+
 using NotificationService.Models.Pagination;
+
+#endregion
 
 namespace NotificationService.Models.QueryParameters.GetAll;
 
@@ -9,5 +12,4 @@ public class GetAllPushesRequestQueryParameters
     public int PageNumber { get; set; } = 1;
     public int PageSize { get; set; } = 100;
     public EQueryNotificationStatus? Status { get; set; } = null;
-
 }

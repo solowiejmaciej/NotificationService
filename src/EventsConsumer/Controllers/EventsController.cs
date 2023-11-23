@@ -1,6 +1,9 @@
-using EventsConsumer.Models.Entity;
+#region
+
 using EventsConsumer.Repositories;
 using Microsoft.AspNetCore.Mvc;
+
+#endregion
 
 namespace EventsConsumer.Controllers;
 
@@ -12,18 +15,18 @@ public class EventsController : ControllerBase
 
     public EventsController(
         IEventsRepository eventsRepository
-        )
+    )
     {
         _eventsRepository = eventsRepository;
     }
 
     [HttpGet]
-    public async Task <ActionResult> GetAllAsync()
+    public async Task<ActionResult> GetAllAsync()
     {
         var test = await _eventsRepository.GetAll();
         return Ok(test);
     }
-    
+
     [HttpGet("{id}")]
     public async Task<ActionResult> GetByIdAsync(Guid id)
     {

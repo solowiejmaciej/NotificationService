@@ -1,6 +1,10 @@
-﻿using NotificationService.Models.AppSettings;
+﻿#region
+
+using NotificationService.Models.AppSettings;
 using NotificationService.Services;
 using Shared.UserContext;
+
+#endregion
 
 namespace NotificationService.Extensions.Users;
 
@@ -18,7 +22,5 @@ public static class ServiceCollectionExtension
 
         var authApiConfig = configuration.GetSection("AuthApiSettings");
         services.Configure<AuthApiConfig>(authApiConfig);
-
-        
     }
 }

@@ -1,20 +1,22 @@
+#region
+
 using EventsConsumer.Persistant;
 using EventsConsumer.Repositories;
 using Microsoft.EntityFrameworkCore;
 
+#endregion
 
-namespace EventsConsumer.Extensions.Db
+namespace EventsConsumer.Extensions.Db;
+
+public static class ServiceCollectionExtensions
 {
-    public static class ServiceCollectionExtensions
+    public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
     {
-        public static void AddDatabase(this IServiceCollection services, IConfiguration configuration)
+        services.AddScoped<IEventsRepository, EventsRepository>();
+
+        services.AddDbContext<EventsDbContext>(options =>
         {
-            services.AddScoped<IEventsRepository, EventsRepository>();
-            
-            services.AddDbContext<EventsDbContext>(options =>
-            {
-                options.UseSqlServer(configuration.GetConnectionString("App"));
-            });
-        }
+            options.UseSqlServer(configuration.GetConnectionString("App"));
+        });
     }
 }

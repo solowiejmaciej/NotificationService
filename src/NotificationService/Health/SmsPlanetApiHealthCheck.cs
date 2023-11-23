@@ -1,49 +1,47 @@
-﻿using Microsoft.Extensions.Diagnostics.HealthChecks;
+﻿#region
+
+using Microsoft.Extensions.Diagnostics.HealthChecks;
 using Microsoft.Extensions.Options;
 using NotificationService.Models.AppSettings;
 using RestSharp;
 
-namespace NotificationService.Health
+#endregion
+
+namespace NotificationService.Health;
+
+internal class BalanceResponse
 {
-    internal class BalanceResponse
+    public int balance { get; set; }
+}
+
+public class SmsPlanetApiHealthCheck : IHealthCheck
+{
+    private readonly SmsSettings _config;
+
+    public SmsPlanetApiHealthCheck(IOptions<SmsSettings> config)
     {
-        public int balance { get; set; }
+        _config = config.Value;
     }
 
-    public class SmsPlanetApiHealthCheck : IHealthCheck
+    public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context,
+        CancellationToken cancellationToken = new())
     {
-        private readonly SmsSettings _config;
+        var baseUrl = _config.ApiUrl;
 
-        public SmsPlanetApiHealthCheck(IOptions<SmsSettings> config)
-        {
-            _config = config.Value;
-        }
+        var options = new RestClientOptions(baseUrl);
+        var client = new RestClient(options);
+        var request = new RestRequest("/getBalance", Method.Post);
 
-        public async Task<HealthCheckResult> CheckHealthAsync(HealthCheckContext context, CancellationToken cancellationToken = new CancellationToken())
-        {
-            var baseUrl = _config.ApiUrl;
+        request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
+        request.AddParameter("key", _config.Key);
+        request.AddParameter("password", _config.Password);
 
-            var options = new RestClientOptions(baseUrl);
-            var client = new RestClient(options);
-            var request = new RestRequest("/getBalance", Method.Post);
+        var response = await client.ExecuteAsync<BalanceResponse>(request, cancellationToken);
 
-            request.AddHeader("Content-Type", "application/x-www-form-urlencoded");
-            request.AddParameter("key", _config.Key);
-            request.AddParameter("password", _config.Password);
+        if (!response.IsSuccessStatusCode) return HealthCheckResult.Degraded();
 
-            var response = await client.ExecuteAsync<BalanceResponse>(request, cancellationToken);
+        if (response.Data == null) return HealthCheckResult.Degraded();
 
-            if (!response.IsSuccessStatusCode)
-            {
-                return HealthCheckResult.Degraded();
-            }
-
-            if (response.Data == null)
-            {
-                return HealthCheckResult.Degraded();
-            }
-
-            return HealthCheckResult.Healthy();
-        }
+        return HealthCheckResult.Healthy();
     }
 }

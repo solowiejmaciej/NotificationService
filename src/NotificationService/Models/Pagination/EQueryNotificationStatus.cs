@@ -4,5 +4,5 @@ public enum EQueryNotificationStatus
 {
     New,
     Send,
-    HasErrors,
+    HasErrors
 }

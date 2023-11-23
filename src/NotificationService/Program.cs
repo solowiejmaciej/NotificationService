@@ -1,3 +1,5 @@
+#region
+
 using Hangfire;
 using HealthChecks.UI.Client;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
@@ -9,6 +11,8 @@ using NotificationService.Extensions.Swagger;
 using NotificationService.Extensions.Users;
 using Prometheus;
 using Shared.Middleware;
+
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -22,7 +26,6 @@ builder.Services.AddSwaggerServiceCollection();
 
 
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
-
 
 
 var app = builder.Build();
@@ -44,7 +47,7 @@ app.UseHangfire();
 
 app.MapHangfireDashboard();
 
-app.MapHealthChecks("/health", new HealthCheckOptions()
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });

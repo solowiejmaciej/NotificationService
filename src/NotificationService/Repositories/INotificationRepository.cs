@@ -1,13 +1,12 @@
-﻿namespace NotificationService.Repositories
+﻿namespace NotificationService.Repositories;
+
+public interface INotificationRepository : IDisposable
 {
-    public interface INotificationRepository : IDisposable
-    {
-        Task<int> SoftDeleteAsync(int id, string userId, CancellationToken cancellationToken = default);
-        
-        public void Save();
+    Task<int> SoftDeleteAsync(int id, string userId, CancellationToken cancellationToken = default);
 
-        Task SaveAsync(CancellationToken cancellationToken = default);
+    public void Save();
 
-        void DeleteInBackground();
-    }
+    Task SaveAsync(CancellationToken cancellationToken = default);
+
+    void DeleteInBackground();
 }

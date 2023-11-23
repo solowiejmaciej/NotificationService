@@ -1,16 +1,19 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using NotificationService.Models.Requests;
 
-namespace NotificationService.Models.Validation.RequestValidation
+#endregion
+
+namespace NotificationService.Models.Validation.RequestValidation;
+
+public class AddPushRequestValidation : AbstractValidator<AddPushRequest>
 {
-    public class AddPushRequestValidation : AbstractValidator<AddPushRequest>
+    public AddPushRequestValidation()
     {
-        public AddPushRequestValidation()
-        {
-            RuleFor(e => e.Content)
-                .NotEmpty();
-            RuleFor(e => e.Title)
-                .NotEmpty();
-        }
+        RuleFor(e => e.Content)
+            .NotEmpty();
+        RuleFor(e => e.Title)
+            .NotEmpty();
     }
 }

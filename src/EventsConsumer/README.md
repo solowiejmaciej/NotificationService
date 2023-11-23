@@ -1,11 +1,11 @@
 # EventsConsumer
 
-Consumes notification events posted to Azure Service Bus Queue
+Consumes notification events posted to RabbitMQ
 
 ## Features
 
 - RabbitMQ
-- Uses NotificationService to post notification to user
+- Uses NotificationService to send notification to user
 - HealthCheck on **/health** endpoint
 
 # Built With

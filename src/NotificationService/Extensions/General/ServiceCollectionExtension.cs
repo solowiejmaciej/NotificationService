@@ -1,9 +1,12 @@
-﻿using System.Reflection;
+﻿#region
+
+using System.Reflection;
 using Microsoft.EntityFrameworkCore;
 using NotificationService.Entities;
 using NotificationService.Health;
-using NotificationService.Middleware;
 using Shared.Middleware;
+
+#endregion
 
 namespace NotificationService.Extensions.General;
 
@@ -17,7 +20,7 @@ public static class ServiceCollectionExtension
 
         services.AddCors(options =>
         {
-            options.AddPolicy(name: "apiCorsPolicy",
+            options.AddPolicy("apiCorsPolicy",
                 builder =>
                 {
                     builder.AllowAnyOrigin()
@@ -28,23 +31,23 @@ public static class ServiceCollectionExtension
                     //.WithMethods("OPTIONS", "GET");
                 });
         });
-        
+
         //Db
         services.AddDbContext<NotificationDbContext>(options =>
         {
             options.UseSqlServer(configuration.GetConnectionString("App"));
         });
-        
+
         //Cache
         services.AddStackExchangeRedisCache(redisOptions =>
         {
-            string connection = configuration.GetConnectionString("Redis");
+            var connection = configuration.GetConnectionString("Redis");
             redisOptions.Configuration = connection;
         });
-        
+
         services.AddMediatR(cfg => cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly()));
 
-        
+
         services.AddMemoryCache();
 
         //HealthChecks
@@ -57,12 +60,10 @@ public static class ServiceCollectionExtension
         services.AddControllers();
         services.AddEndpointsApiExplorer();
         services.AddScoped<ErrorHandlingMiddleware>();
-
     }
-    
+
     public static IApplicationBuilder AddPrometheus(this IApplicationBuilder app)
     {
-
         return app;
     }
 }

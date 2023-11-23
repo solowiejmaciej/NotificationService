@@ -1,18 +1,20 @@
-﻿using AutoMapper;
-using NotificationService.Entities;
+﻿#region
+
+using AutoMapper;
 using NotificationService.Models;
 using NotificationService.Models.Dtos;
 
-namespace NotificationService.MappingProfiles.Recipients
+#endregion
+
+namespace NotificationService.MappingProfiles.Recipients;
+
+public class RecipientMappingProfile : Profile
 {
-    public class RecipientMappingProfile : Profile
+    public RecipientMappingProfile()
     {
-        public RecipientMappingProfile()
-        {
-            CreateMap<UserDto, Recipient>()
-                .ForMember(u => u.UserId, c => c.MapFrom(r => r.Id));
-            CreateMap<Recipient, UserDto>()
-                .ForMember(u => u.Id, c => c.MapFrom(r => r.UserId));
-        }
+        CreateMap<UserDto, Recipient>()
+            .ForMember(u => u.UserId, c => c.MapFrom(r => r.Id));
+        CreateMap<Recipient, UserDto>()
+            .ForMember(u => u.Id, c => c.MapFrom(r => r.UserId));
     }
 }

@@ -1,17 +1,19 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿#region
+
+using Microsoft.EntityFrameworkCore;
 using NotificationService.Entities.NotificationEntities;
 
-namespace NotificationService.Entities
-{
-    public class NotificationDbContext : DbContext
-    {
-        public NotificationDbContext(DbContextOptions<NotificationDbContext> options) : base(options)
-        {
-        }
+#endregion
 
-        public DbSet<EmailNotification> EmailsNotifications { get; set; }
-        public DbSet<PushNotification> PushNotifications { get; set; }
-        public DbSet<SmsNotification> SmsNotifications { get; set; }
-        
+namespace NotificationService.Entities;
+
+public class NotificationDbContext : DbContext
+{
+    public NotificationDbContext(DbContextOptions<NotificationDbContext> options) : base(options)
+    {
     }
+
+    public DbSet<EmailNotification> EmailsNotifications { get; set; }
+    public DbSet<PushNotification> PushNotifications { get; set; }
+    public DbSet<SmsNotification> SmsNotifications { get; set; }
 }

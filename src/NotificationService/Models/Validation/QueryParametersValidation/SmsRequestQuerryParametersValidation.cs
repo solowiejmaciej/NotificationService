@@ -1,14 +1,17 @@
-﻿using FluentValidation;
+﻿#region
+
+using FluentValidation;
 using NotificationService.Models.QueryParameters.Create;
 
-namespace NotificationService.Models.Validation.QueryParametersValidation
+#endregion
+
+namespace NotificationService.Models.Validation.QueryParametersValidation;
+
+public class SmsRequestQuerryParametersValidation : AbstractValidator<CreateSmsRequestQueryParameters>
 {
-    public class SmsRequestQuerryParametersValidation : AbstractValidator<CreateSmsRequestQueryParameters>
+    public SmsRequestQuerryParametersValidation()
     {
-        public SmsRequestQuerryParametersValidation()
-        {
-            RuleFor(e => e.UserId)
-                .NotEmpty();
-        }
+        RuleFor(e => e.UserId)
+            .NotEmpty();
     }
 }

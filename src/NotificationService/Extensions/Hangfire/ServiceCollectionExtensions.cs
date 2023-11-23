@@ -1,8 +1,12 @@
+#region
+
 using Hangfire;
 using HangfireBasicAuthenticationFilter;
 using NotificationService.Hangfire;
 using NotificationService.Hangfire.Manager;
 using NotificationService.Repositories;
+
+#endregion
 
 namespace NotificationService.Extensions.Hangfire;
 
@@ -11,8 +15,8 @@ public static class ServiceCollectionExtensions
     public static IServiceCollection AddHangfireServiceCollection(this IServiceCollection services)
     {
         var configuration = new ConfigurationBuilder()
-                .AddJsonFile("appsettings.json")
-                .Build();
+            .AddJsonFile("appsettings.json")
+            .Build();
 
         services.AddHangfire(config => config
             .UseSimpleAssemblyNameTypeSerializer()
@@ -44,12 +48,12 @@ public static class ServiceCollectionExtensions
 
         var hangfireSettings = configuration.GetSection("HangfireSettings");
 
-        app.UseHangfireDashboard("/hangfire", new DashboardOptions()
+        app.UseHangfireDashboard("/hangfire", new DashboardOptions
         {
             DashboardTitle = "NotificationService",
             Authorization = new[]
             {
-                new HangfireCustomBasicAuthenticationFilter()
+                new HangfireCustomBasicAuthenticationFilter
                 {
                     User = hangfireSettings["UserName"],
                     Pass = hangfireSettings["Password"]
@@ -61,7 +65,7 @@ public static class ServiceCollectionExtensions
             x => x.DeleteInBackground(),
             Cron.Minutely,
             queue: HangfireQueues.LOW_PRIORITY
-            );
+        );
         RecurringJob.AddOrUpdate<ISmsRepository>(
             "DeleteSMS",
             x => x.DeleteInBackground(),

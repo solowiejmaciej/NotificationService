@@ -1,11 +1,14 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿#region
 
-namespace AuthService.Domain.Entities
+using Microsoft.AspNetCore.Identity;
+
+#endregion
+
+namespace AuthService.Domain.Entities;
+
+public class ApplicationUser : IdentityUser
 {
-    public class ApplicationUser : IdentityUser
-    {
-        public string? DeviceId { get; set; }
-        public string Firstname { get; set; }
-        public string Surname { get; set; }
-    }
+    public string? DeviceId { get; set; }
+    public string Firstname { get; set; }
+    public string Surname { get; set; }
 }

@@ -1,11 +1,13 @@
-﻿using NotificationService.Middleware;
+﻿#region
+
+using System.Security.Cryptography;
+using Microsoft.IdentityModel.Tokens;
+using NotificationService.Middleware;
+using NotificationService.Models.AppSettings;
+
+#endregion
 
 namespace NotificationService.Extensions.Auth;
-
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.IdentityModel.Tokens;
-using Models.AppSettings;
-using System.Security.Cryptography;
 
 public static class ServiceCollectionExtension
 {
@@ -23,13 +25,13 @@ public static class ServiceCollectionExtension
         var apiKeyConfigurationSection = configuration.GetSection("ApiKeySettings");
         apiKeyConfigurationSection.Bind(apiKeySettings);
 
-        RSA rsa = RSA.Create();
-        
+        var rsa = RSA.Create();
+
         rsa.ImportSubjectPublicKeyInfo(
-            source: Convert.FromBase64String(jwtSettings.PublicKey),
-            bytesRead: out int _
+            Convert.FromBase64String(jwtSettings.PublicKey),
+            out var _
         );
-        
+
         var tokenValidationParameters = new TokenValidationParameters
         {
             ValidateIssuerSigningKey = true,
@@ -38,11 +40,10 @@ public static class ServiceCollectionExtension
             IssuerSigningKey = new RsaSecurityKey(rsa),
             ValidateLifetime = true,
             ClockSkew = TimeSpan.Zero
-            
         };
-        
+
         services.AddSingleton(tokenValidationParameters);
-        
+
         services.Configure<ApiKeySettings>(apiKeyConfigurationSection);
         services.Configure<JWTSettings>(authConfigurationSection);
 

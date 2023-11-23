@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿#region
+
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.MediatR.Handlers.CreateNew;
@@ -9,76 +11,77 @@ using NotificationService.Models.QueryParameters.Create;
 using NotificationService.Models.QueryParameters.GetAll;
 using NotificationService.Models.Requests.Add;
 
-namespace NotificationService.Controllers
+#endregion
+
+namespace NotificationService.Controllers;
+
+[ApiController]
+[Route("api/[controller]")]
+public class SmsesController : ControllerBase
 {
-    [ApiController]
-    [Route("api/[controller]")]
-    public class SmsesController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public SmsesController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public SmsesController(IMediator mediator)
+    [HttpPost]
+    public async Task<IActionResult> Add(
+        [FromBody] AddSmsRequest request,
+        [FromQuery] CreateSmsRequestQueryParameters parameters
+    )
+    {
+        var command = new CreateNewSmsCommand
         {
-            _mediator = mediator;
-        }
+            Content = request.Content,
+            RecipiantId = parameters.UserId
+        };
 
-        [HttpPost]
-        public async Task<IActionResult> Add(
-            [FromBody] AddSmsRequest request,
-            [FromQuery] CreateSmsRequestQueryParameters parameters
-        )
+        var createdSmsId = await _mediator.Send(command);
+        return Created($"/api/Sms/{createdSmsId}", command);
+    }
+
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult> GetAll(
+        [FromQuery] GetAllSmsRequestQueryParameters queryParameters
+    )
+    {
+        var query = new GetAllPushesQuery
         {
-            var command = new CreateNewSmsCommand()
-            {
-                Content = request.Content,
-                RecipiantId = parameters.UserId
-            };
+            SearchPhrase = queryParameters.SearchPhrase,
+            PageNumber = queryParameters.PageNumber,
+            PageSize = queryParameters.PageSize,
+            Status = queryParameters.Status
+        };
+        var allSmsDtoByCurrentUser = await _mediator.Send(query);
+        return Ok(allSmsDtoByCurrentUser);
+    }
 
-            var createdSmsId = await _mediator.Send(command);
-            return Created($"/api/Sms/{createdSmsId}", command);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> GetAll(
-            [FromQuery] GetAllSmsRequestQueryParameters queryParameters
-        )
+    [Authorize]
+    [Route("{id:int}")]
+    [HttpGet]
+    public async Task<ActionResult> GetById([FromRoute] int id)
+    {
+        var query = new GetSmsByIdQuerry
         {
-            var query = new GetAllPushesQuery()
-            {
-                SearchPhrase = queryParameters.SearchPhrase,
-                PageNumber = queryParameters.PageNumber,
-                PageSize = queryParameters.PageSize,
-                Status = queryParameters.Status
-            };
-            var allSmsDtoByCurrentUser = await _mediator.Send(query);
-            return Ok(allSmsDtoByCurrentUser);
-        }
+            Id = id
+        };
 
-        [Authorize]
-        [Route("{id:int}")]
-        [HttpGet]
-        public async Task<ActionResult> GetById([FromRoute] int id)
+        var smsCreatedByCurrentUserWithSearchId = await _mediator.Send(query);
+        return Ok(smsCreatedByCurrentUserWithSearchId);
+    }
+
+    [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var command = new DeleteSmsCommand
         {
-            var query = new GetSmsByIdQuerry()
-            {
-                Id = id
-            };
-
-            var smsCreatedByCurrentUserWithSearchId = await _mediator.Send(query);
-            return Ok(smsCreatedByCurrentUserWithSearchId);
-        }
-
-        [Authorize]
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
-        {
-            var command = new DeleteSmsCommand()
-            {
-                Id = id
-            };
-            await _mediator.Send(command);
-            return Accepted();
-        }
+            Id = id
+        };
+        await _mediator.Send(command);
+        return Accepted();
     }
 }

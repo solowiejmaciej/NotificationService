@@ -1,8 +1,7 @@
-﻿namespace NotificationService.Models.AppSettings
+﻿namespace NotificationService.Models.AppSettings;
+
+public class ApiKeySettings
 {
-    public class ApiKeySettings
-    {
-        public string HeaderName { get; set; }
-        public string ApiKey { get; set; }
-    }
+    public string HeaderName { get; set; }
+    public string ApiKey { get; set; }
 }

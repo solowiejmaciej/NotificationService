@@ -1,3 +1,5 @@
+#region
+
 using AuthService.Api.Extensions;
 using AuthService.Api.Middleware;
 using AuthService.Api.Models.Requests.Add;
@@ -10,11 +12,10 @@ using AuthService.Models.Requests.Update;
 using FluentValidation;
 using FluentValidation.AspNetCore;
 using HealthChecks.UI.Client;
-using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Diagnostics.HealthChecks;
-using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
 using Shared.Middleware;
+
+#endregion
 
 var builder = WebApplication.CreateBuilder(args);
 builder.Logging.AddFilter("Microsoft.EntityFrameworkCore.Database.Command", LogLevel.Warning);
@@ -54,8 +55,7 @@ app.UseHttpsRedirection();
 app.UseAuthorization();
 
 
-
-app.MapHealthChecks("/health", new HealthCheckOptions()
+app.MapHealthChecks("/health", new HealthCheckOptions
 {
     ResponseWriter = UIResponseWriter.WriteHealthCheckUIResponse
 });

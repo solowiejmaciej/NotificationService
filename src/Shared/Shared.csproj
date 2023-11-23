@@ -22,4 +22,10 @@
     </ItemGroup>
 
 
+    <ItemGroup>
+      <Content Include="..\..\README.MD">
+        <Link>README.MD</Link>
+      </Content>
+    </ItemGroup>
+
 </Project>

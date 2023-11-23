@@ -1,6 +1,5 @@
-﻿namespace NotificationService.Models.Dtos
+﻿namespace NotificationService.Models.Dtos;
+
+public class SmsNotificationDto : NotificationDto
 {
-    public class SmsNotificationDto : NotificationDto
-    {
-    }
 }

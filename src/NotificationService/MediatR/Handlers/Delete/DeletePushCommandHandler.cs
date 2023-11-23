@@ -1,38 +1,38 @@
-﻿using MediatR;
-using Shared.Exceptions;
+﻿#region
+
+using MediatR;
 using NotificationService.Repositories;
+using Shared.Exceptions;
 using Shared.UserContext;
 
-namespace NotificationService.MediatR.Handlers.Delete
+#endregion
+
+namespace NotificationService.MediatR.Handlers.Delete;
+
+public class DeletePushCommandHandler : IRequestHandler<DeletePushCommand>
 {
-    public class DeletePushCommandHandler : IRequestHandler<DeletePushCommand>
+    private readonly IPushRepository _repository;
+    private readonly IUserContext _userContext;
+
+    public DeletePushCommandHandler(
+        IPushRepository repository,
+        IUserContext userContext
+    )
     {
-        private readonly IPushRepository _repository;
-        private readonly IUserContext _userContext;
-
-        public DeletePushCommandHandler(
-            IPushRepository repository,
-            IUserContext userContext
-        )
-        {
-            _repository = repository;
-            _userContext = userContext;
-        }
-
-        public async Task Handle(DeletePushCommand request, CancellationToken cancellationToken)
-        {
-            var user = _userContext.GetCurrentUser();
-            var deletedPushId = await _repository.SoftDeleteAsync(request.Id, user.Id, cancellationToken);
-
-            if (deletedPushId == 0)
-            {
-                throw new NotFoundException($"Push with Id {request.Id} not found");
-            }
-        }
+        _repository = repository;
+        _userContext = userContext;
     }
-    
-    public record DeletePushCommand : IRequest
+
+    public async Task Handle(DeletePushCommand request, CancellationToken cancellationToken)
     {
-        public int Id { get; set; }
+        var user = _userContext.GetCurrentUser();
+        var deletedPushId = await _repository.SoftDeleteAsync(request.Id, user.Id, cancellationToken);
+
+        if (deletedPushId == 0) throw new NotFoundException($"Push with Id {request.Id} not found");
     }
+}
+
+public record DeletePushCommand : IRequest
+{
+    public int Id { get; set; }
 }

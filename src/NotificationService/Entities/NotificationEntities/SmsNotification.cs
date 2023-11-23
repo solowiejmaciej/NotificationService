@@ -1,6 +1,5 @@
-﻿namespace NotificationService.Entities.NotificationEntities
+﻿namespace NotificationService.Entities.NotificationEntities;
+
+public class SmsNotification : Notification
 {
-    public class SmsNotification : Notification
-    {
-    }
 }

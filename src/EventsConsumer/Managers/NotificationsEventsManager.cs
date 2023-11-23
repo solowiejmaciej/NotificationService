@@ -1,19 +1,24 @@
-using EventsConsumer.Abstractions;
+#region
+
 using EventsConsumer.Events;
 using EventsConsumer.Repositories;
 using Shared.Enums;
 
+#endregion
+
 namespace EventsConsumer.Managers;
+
 public class NotificationsEventManager : IEventManager<NotificationEvent>
 {
     private readonly IEventsRepository _eventsRepository;
 
     public NotificationsEventManager(
         IEventsRepository eventsRepository
-        )
+    )
     {
         _eventsRepository = eventsRepository;
     }
+
     public async Task<bool> ChangeStatusAsync(NotificationEvent @event, EStatus status)
     {
         var baseEvent = @event.ToEvent();

@@ -10,5 +10,4 @@ public class SendEmailBody
 
     public string Content { get; set; }
     public string Subject { get; set; }
-
 }

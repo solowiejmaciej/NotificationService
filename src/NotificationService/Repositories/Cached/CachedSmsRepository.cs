@@ -1,5 +1,9 @@
-﻿using NotificationService.Entities.NotificationEntities;
+﻿#region
+
+using NotificationService.Entities.NotificationEntities;
 using NotificationService.Services;
+
+#endregion
 
 namespace NotificationService.Repositories.Cached;
 
@@ -10,13 +14,14 @@ public class CachedSmsRepository : ISmsRepository
     private readonly ILogger<CachedSmsRepository> _logger;
 
 
-    public CachedSmsRepository(ISmsRepository decorated, ICacheService cacheService, ILogger<CachedSmsRepository> logger)
+    public CachedSmsRepository(ISmsRepository decorated, ICacheService cacheService,
+        ILogger<CachedSmsRepository> logger)
     {
         _decorated = decorated;
         _cacheService = cacheService;
         _logger = logger;
     }
-    
+
     public async Task<int> SoftDeleteAsync(int id, string userId, CancellationToken cancellationToken = default)
     {
         var key = $"sms-{id}";
@@ -37,7 +42,7 @@ public class CachedSmsRepository : ISmsRepository
     {
         await _decorated.SaveAsync(cancellationToken);
     }
-    
+
     public async Task AddAsync(SmsNotification sms, CancellationToken cancellationToken = default)
     {
         var key = $"sms-es-{sms.RecipientId}";
@@ -45,9 +50,10 @@ public class CachedSmsRepository : ISmsRepository
         _logger.LogInformation("cached key {0} removed", key);
         await _decorated.AddAsync(sms, cancellationToken);
     }
-    
 
-    public async Task<List<SmsNotification>> GetAllSmsToUserIdAsync(string userId, CancellationToken cancellationToken = default)
+
+    public async Task<List<SmsNotification>> GetAllSmsToUserIdAsync(string userId,
+        CancellationToken cancellationToken = default)
     {
         var key = $"sms-es-{userId}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
@@ -56,23 +62,21 @@ public class CachedSmsRepository : ISmsRepository
         {
             _logger.LogInformation("Fetching from db for key {0}", key);
             var data = await _decorated.GetAllSmsToUserIdAsync(userId, cancellationToken);
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
 
         return cachedData;
     }
 
-    public async Task<SmsNotification?> GetSmsByIdAndUserIdAsync(int id, string userId, CancellationToken cancellationToken = default)
+    public async Task<SmsNotification?> GetSmsByIdAndUserIdAsync(int id, string userId,
+        CancellationToken cancellationToken = default)
     {
-        
-        string key = $"sms-{id}";
+        var key = $"sms-{id}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
         var cachedData = await _cacheService.GetDataAsync<SmsNotification>(key, cancellationToken);
         if (cachedData is null)
@@ -81,14 +85,12 @@ public class CachedSmsRepository : ISmsRepository
 
             var data = await _decorated.GetSmsByIdAndUserIdAsync(id, userId, cancellationToken);
 
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
         return cachedData;
     }
@@ -100,7 +102,7 @@ public class CachedSmsRepository : ISmsRepository
         _cacheService.RemoveDataAsync(key);
         _decorated.ChangeSmsStatus(id, status);
     }
-    
+
     public void Dispose()
     {
         _decorated.Dispose();

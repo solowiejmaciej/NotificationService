@@ -1,3 +1,5 @@
+#region
+
 using Hangfire;
 using Hangfire.Server;
 using MailKit.Net.Smtp;
@@ -7,7 +9,8 @@ using NotificationService.Entities.NotificationEntities;
 using NotificationService.Models;
 using NotificationService.Models.AppSettings;
 using NotificationService.Repositories;
-using NotificationService.Services;
+
+#endregion
 
 namespace NotificationService.Hangfire.Jobs;
 
@@ -21,8 +24,7 @@ public sealed class EmailDeliveryProcessingJob
         ILogger<EmailDeliveryProcessingJob> logger,
         IOptions<SMTPSettings> config,
         IEmailsRepository repository
-
-        )
+    )
     {
         _logger = logger;
         _repo = repository;

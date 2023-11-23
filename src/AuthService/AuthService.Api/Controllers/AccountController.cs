@@ -2,10 +2,12 @@
 
 using AuthService.Api.Models.QueryParameters.ConfirmationCode;
 using AuthService.Application.MediatR.Command;
+using MassTransit.Mediator;
 using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Shared.Enums;
+using IMediator = MediatR.IMediator;
 
 #endregion
 

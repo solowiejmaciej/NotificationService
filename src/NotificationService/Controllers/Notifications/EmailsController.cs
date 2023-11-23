@@ -1,4 +1,6 @@
-﻿using MediatR;
+﻿#region
+
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using NotificationService.MediatR.Handlers.CreateNew;
@@ -9,77 +11,78 @@ using NotificationService.Models.QueryParameters.Create;
 using NotificationService.Models.QueryParameters.GetAll;
 using NotificationService.Models.Requests;
 
-namespace NotificationService.Controllers
+#endregion
+
+namespace NotificationService.Controllers.Notifications;
+
+[Route("api/[controller]")]
+[ApiController]
+public class EmailsController : ControllerBase
 {
-    [Route("api/[controller]")]
-    [ApiController]
-    public class EmailsController : ControllerBase
+    private readonly IMediator _mediator;
+
+    public EmailsController(IMediator mediator)
     {
-        private readonly IMediator _mediator;
+        _mediator = mediator;
+    }
 
-        public EmailsController(IMediator mediator)
+    [HttpPost]
+    public async Task<ActionResult> Add(
+        [FromBody] AddEmailRequest request,
+        [FromQuery] CreateEmailRequestQueryParameters parameters
+    )
+    {
+        var command = new CreateNewEmailCommand
         {
-            _mediator = mediator;
-        }
+            Content = request.Content,
+            Subject = request.Subject,
+            RecipiantId = parameters.UserId
+        };
 
-        [HttpPost]
-        public async Task<ActionResult> Add(
-            [FromBody] AddEmailRequest request,
-            [FromQuery] CreateEmailRequestQueryParameters parameters
-        )
-        {
-            var command = new CreateNewEmailCommand()
-            {
-                Content = request.Content,
-                Subject = request.Subject,
-                RecipiantId = parameters.UserId
-            };
+        var createdEmailId = await _mediator.Send(command);
+        return Created($"/api/Email/{createdEmailId}", command);
+    }
 
-            var createdEmailId = await _mediator.Send(command);
-            return Created($"/api/Email/{createdEmailId}", command);
-        }
-
-        [Authorize]
-        [HttpGet]
-        public async Task<ActionResult> GetAll(
+    [Authorize]
+    [HttpGet]
+    public async Task<ActionResult> GetAll(
         [FromQuery] GetAllEmailsRequestQueryParameters queryParameters
-            )
+    )
+    {
+        var query = new GetAllEmailsQuery
         {
-            var query = new GetAllEmailsQuery()
-            {
-                SearchPhrase = queryParameters.SearchPhrase,
-                PageNumber = queryParameters.PageNumber,
-                PageSize = queryParameters.PageSize,
-                Status = queryParameters.Status
-            };
-            var emailDtosByCurrentUser = await _mediator.Send(query);
-            return Ok(emailDtosByCurrentUser);
-        }
+            SearchPhrase = queryParameters.SearchPhrase,
+            PageNumber = queryParameters.PageNumber,
+            PageSize = queryParameters.PageSize,
+            Status = queryParameters.Status
+        };
+        var emailDtosByCurrentUser = await _mediator.Send(query);
+        return Ok(emailDtosByCurrentUser);
+    }
 
-        [Authorize]
-        [Route("{id:int}")]
-        [HttpGet]
-        public async Task<ActionResult> GetById([FromRoute] int id)
+    [Authorize]
+    [Route("{id:int}")]
+    [HttpGet]
+    public async Task<ActionResult> GetById([FromRoute] int id)
+    {
+        var query = new GetEmailByIdQuerry
         {
-            var query = new GetEmailByIdQuerry()
-            {
-                Id = id
-            };
+            Id = id
+        };
 
-            var emailCreatedByCurrentUserWithSearchId = await _mediator.Send(query);
-            return Ok(emailCreatedByCurrentUserWithSearchId);
-        }
+        var emailCreatedByCurrentUserWithSearchId = await _mediator.Send(query);
+        return Ok(emailCreatedByCurrentUserWithSearchId);
+    }
 
-        [Authorize]
-        [HttpDelete("{id:int}")]
-        public async Task<ActionResult> Delete(int id)
+    [Authorize]
+    [HttpDelete("{id:int}")]
+    public async Task<ActionResult> Delete(int id)
+    {
+        var command = new DeleteEmailCommand
         {
-            var command = new DeleteEmailCommand()
-            {
-                Id = id
-            };
-            await _mediator.Send(command);
-            return Accepted();
-        }
+            Id = id
+        };
+        await _mediator.Send(command);
+        return Accepted();
     }
 }

@@ -1,4 +1,8 @@
+#region
+
 using Shared.Enums;
+
+#endregion
 
 namespace EventsConsumer.Models.Entity;
 
@@ -10,5 +14,4 @@ public class Event
     public required string QueueName { get; set; }
     public required EStatus Status { get; set; }
     public required string ErrorMessage { get; set; }
-    
 }

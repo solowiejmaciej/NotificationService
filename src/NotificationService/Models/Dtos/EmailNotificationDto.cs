@@ -1,7 +1,6 @@
-﻿namespace NotificationService.Models.Dtos
+﻿namespace NotificationService.Models.Dtos;
+
+public class EmailNotificationDto : NotificationDto
 {
-    public class EmailNotificationDto : NotificationDto
-    {
-        public string Subject { get; set; }
-    }
+    public string Subject { get; set; }
 }

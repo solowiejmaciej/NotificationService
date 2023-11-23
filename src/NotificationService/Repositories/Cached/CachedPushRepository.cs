@@ -1,5 +1,9 @@
-﻿using NotificationService.Entities.NotificationEntities;
+﻿#region
+
+using NotificationService.Entities.NotificationEntities;
 using NotificationService.Services;
+
+#endregion
 
 namespace NotificationService.Repositories.Cached;
 
@@ -9,7 +13,8 @@ public class CachedPushRepository : IPushRepository
     private readonly ICacheService _cacheService;
     private readonly ILogger<CachedPushRepository> _logger;
 
-    public CachedPushRepository(IPushRepository decorated, ICacheService cacheService, ILogger<CachedPushRepository> logger)
+    public CachedPushRepository(IPushRepository decorated, ICacheService cacheService,
+        ILogger<CachedPushRepository> logger)
     {
         _decorated = decorated;
         _cacheService = cacheService;
@@ -31,7 +36,7 @@ public class CachedPushRepository : IPushRepository
         _logger.LogInformation("cached key {0} removed", secondKey);
         return await _decorated.SoftDeleteAsync(id, userId, cancellationToken);
     }
-    
+
     public void Save()
     {
         _decorated.Save();
@@ -55,7 +60,8 @@ public class CachedPushRepository : IPushRepository
         return await _decorated.AddAsync(push, cancellationToken);
     }
 
-    public async Task<List<PushNotification>> GetAllPushesToUserIdAsync(string userId, CancellationToken cancellationToken = default)
+    public async Task<List<PushNotification>> GetAllPushesToUserIdAsync(string userId,
+        CancellationToken cancellationToken = default)
     {
         var key = $"pushs-{userId}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
@@ -64,22 +70,20 @@ public class CachedPushRepository : IPushRepository
         {
             _logger.LogInformation("Fetching from db for key {0}", key);
             var data = await _decorated.GetAllPushesToUserIdAsync(userId, cancellationToken);
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
         return cachedData;
     }
 
-    public async Task<PushNotification?> GetPushByIdAndUserIdAsync(int id, string userId, CancellationToken cancellationToken = default)
+    public async Task<PushNotification?> GetPushByIdAndUserIdAsync(int id, string userId,
+        CancellationToken cancellationToken = default)
     {
-        
-        string key = $"push-{id}";
+        var key = $"push-{id}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
         var cachedData = await _cacheService.GetDataAsync<PushNotification>(key, cancellationToken);
         if (cachedData is null)
@@ -87,14 +91,12 @@ public class CachedPushRepository : IPushRepository
             _logger.LogInformation("Fetching from db for key {0}", key);
             var data = await _decorated.GetPushByIdAndUserIdAsync(id, userId, cancellationToken);
 
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
         return cachedData;
     }

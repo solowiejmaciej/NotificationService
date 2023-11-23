@@ -1,4 +1,7 @@
-﻿using Google.Apis.Auth.OAuth2;
+﻿#region
+
+using System.Text.Json;
+using Google.Apis.Auth.OAuth2;
 using Google.Apis.FirebaseCloudMessaging.v1;
 using Google.Apis.FirebaseCloudMessaging.v1.Data;
 using Google.Apis.Services;
@@ -9,66 +12,67 @@ using NotificationService.Entities.NotificationEntities;
 using NotificationService.Models;
 using NotificationService.Models.AppSettings;
 using NotificationService.Repositories;
-using System.Text.Json;
 using Notification = Google.Apis.FirebaseCloudMessaging.v1.Data.Notification;
 
-namespace NotificationService.Hangfire.Jobs
+#endregion
+
+namespace NotificationService.Hangfire.Jobs;
+
+public sealed class PushDeliveryProcessingJob
 {
-    public sealed class PushDeliveryProcessingJob
+    private readonly ILogger<PushDeliveryProcessingJob> _logger;
+    private readonly IOptions<GoogleFirebaseSettings> _config;
+    private readonly IPushRepository _repository;
+
+    public PushDeliveryProcessingJob(
+        ILogger<PushDeliveryProcessingJob> logger,
+        IOptions<GoogleFirebaseSettings> config,
+        IPushRepository repository
+    )
     {
-        private readonly ILogger<PushDeliveryProcessingJob> _logger;
-        private readonly IOptions<GoogleFirebaseSettings> _config;
-        private readonly IPushRepository _repository;
+        _logger = logger;
+        _config = config;
+        _repository = repository;
+    }
 
-        public PushDeliveryProcessingJob(
-            ILogger<PushDeliveryProcessingJob> logger,
-            IOptions<GoogleFirebaseSettings> config,
-            IPushRepository repository
-        )
+    [AutomaticRetry(Attempts = 0)]
+    [JobDisplayName("PushDeliveryProcessingJob")]
+    [Queue(HangfireQueues.DEFAULT)]
+    public async Task Send(
+        PushNotification push,
+        Recipient recipient,
+        PerformContext context,
+        CancellationToken cancellationToken)
+    {
+        _logger.LogInformation("PushDeliveryProcessingJob invoked");
+        var firebaseCloudMessagingService = new FirebaseCloudMessagingService(new BaseClientService.Initializer
         {
-            _logger = logger;
-            _config = config;
-            _repository = repository;
-        }
+            HttpClientInitializer = GoogleCredential.FromJson(JsonSerializer.Serialize(_config.Value))
+        });
 
-        [AutomaticRetry(Attempts = 0)]
-        [JobDisplayName("PushDeliveryProcessingJob")]
-        [Queue(HangfireQueues.DEFAULT)]
-        public async Task Send(
-            PushNotification push,
-            Recipient recipient,
-            PerformContext context,
-            CancellationToken cancellationToken)
+        var pushNotification = new SendMessageRequest
         {
-            _logger.LogInformation("PushDeliveryProcessingJob invoked");
-            FirebaseCloudMessagingService firebaseCloudMessagingService = new FirebaseCloudMessagingService(new BaseClientService.Initializer
+            Message = new Message
             {
-                HttpClientInitializer = GoogleCredential.FromJson(JsonSerializer.Serialize(_config.Value))
-            });
-
-            var pushNotification = new SendMessageRequest()
-            {
-                Message = new Message()
+                Token = recipient.DeviceId,
+                Notification = new Notification
                 {
-                    Token = recipient.DeviceId,
-                    Notification = new Notification()
-                    {
-                        Title = push.Title,
-                        Body = push.Content
-                    }
-                },
-            };
-            try
-            {
-                await firebaseCloudMessagingService.Projects.Messages.Send(pushNotification, $"projects/{_config.Value.project_id}").ExecuteAsync(cancellationToken);
-                _repository.ChangePushStatus(push.Id, EStatus.Send);
-                _logger.LogInformation($"Push {push.Id} send successfully");
+                    Title = push.Title,
+                    Body = push.Content
+                }
             }
-            catch (Exception ex)
-            {
-                _repository.ChangePushStatus(push.Id, EStatus.HasErrors);
-                _logger.LogError("Error occurred while trying to send a push" + ex.Message);
-            }
+        };
+        try
+        {
+            await firebaseCloudMessagingService.Projects.Messages
+                .Send(pushNotification, $"projects/{_config.Value.project_id}").ExecuteAsync(cancellationToken);
+            _repository.ChangePushStatus(push.Id, EStatus.Send);
+            _logger.LogInformation($"Push {push.Id} send successfully");
+        }
+        catch (Exception ex)
+        {
+            _repository.ChangePushStatus(push.Id, EStatus.HasErrors);
+            _logger.LogError("Error occurred while trying to send a push" + ex.Message);
         }
     }
 }

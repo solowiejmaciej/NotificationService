@@ -1,7 +1,6 @@
-﻿namespace NotificationService.Entities.NotificationEntities
+﻿namespace NotificationService.Entities.NotificationEntities;
+
+public class PushNotification : Notification
 {
-    public class PushNotification : Notification
-    {
-        public string Title { get; set; }
-    }
+    public string Title { get; set; }
 }

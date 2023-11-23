@@ -1,8 +1,10 @@
-﻿using System.Threading;
-using System.Threading.Tasks;
+﻿#region
+
 using AuthService.Application.Models.Responses;
 using AuthService.Application.Services;
 using MediatR;
+
+#endregion
 
 namespace AuthService.Application.MediatR.Command;
 
@@ -12,14 +14,14 @@ public class RefreshTokenCommandHandler : IRequestHandler<RefreshTokenCommand, T
 
     public RefreshTokenCommandHandler(
         IJwtManager jwtManager
-        )
+    )
     {
         _jwtManager = jwtManager;
     }
-    
+
     public async Task<TokenResponse> Handle(RefreshTokenCommand request, CancellationToken cancellationToken)
     {
-       return await _jwtManager.RefreshTokenAsync(request);
+        return await _jwtManager.RefreshTokenAsync(request);
     }
 }
 

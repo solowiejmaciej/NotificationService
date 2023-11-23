@@ -21,9 +21,12 @@
 
     <ItemGroup>
         <ProjectReference Include="..\..\Shared\Shared.csproj"/>
-        <ProjectReference Include="..\AuthService.Application\AuthService.Application.csproj"/>
-        <ProjectReference Include="..\AuthService.Domain\AuthService.Domain.csproj"/>
-        <ProjectReference Include="..\AuthService.Infrastructure\AuthService.Infrastructure.csproj"/>
+        <ProjectReference Include="..\AuthService.Application\AuthService.Application.csproj" />
+        <ProjectReference Include="..\AuthService.Application\AuthService.Application.csproj" />
+        <ProjectReference Include="..\AuthService.Infrastructure\AuthService.Infrastructure.csproj" />
+        <ProjectReference Include="..\AuthService.Infrastructure\AuthService.Infrastructure.csproj" />
+        
+
     </ItemGroup>
 
 

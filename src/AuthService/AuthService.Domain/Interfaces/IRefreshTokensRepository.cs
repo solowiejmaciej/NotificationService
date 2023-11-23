@@ -1,4 +1,8 @@
-﻿using AuthService.Domain.Entities;
+﻿#region
+
+using AuthService.Domain.Entities;
+
+#endregion
 
 namespace AuthService.Domain.Interfaces;
 

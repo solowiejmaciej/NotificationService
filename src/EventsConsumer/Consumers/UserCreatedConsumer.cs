@@ -1,9 +1,12 @@
-﻿using EventsConsumer.Events;
+﻿#region
+
+using EventsConsumer.Events;
 using EventsConsumer.Managers;
 using EventsConsumer.Models.Body;
 using MassTransit;
 using Shared.Enums;
-using Shared.Events;
+
+#endregion
 
 namespace EventsConsumer.Consumers;
 
@@ -17,7 +20,7 @@ public class UserCreatedConsumer : IConsumer<UserCreatedEvent>
         ILogger<UserCreatedConsumer> logger,
         INotificationApiClient client,
         IEventManager<NotificationEvent> eventManager
-            )
+    )
     {
         _logger = logger;
         _client = client;
@@ -31,7 +34,7 @@ public class UserCreatedConsumer : IConsumer<UserCreatedEvent>
         await _eventManager.AddAsync(userCreated);
         await _eventManager.ChangeStatusAsync(userCreated, EStatus.Processing);
         _logger.LogInformation("Trying to send welcome email for user {UserId} ", userCreated.UserId);
-        var body = new SendEmailBody($"Cześć dziękujemy za rejestrację!", "Hello there!");
+        var body = new SendEmailBody("Cześć dziękujemy za rejestrację!", "Hello there!");
         try
         {
             _client.SendEmail(userCreated.UserId, body);
@@ -43,6 +46,5 @@ public class UserCreatedConsumer : IConsumer<UserCreatedEvent>
             await _eventManager.ChangeStatusAsync(userCreated, EStatus.Failed);
             await _eventManager.AddErrorMessageAsync(userCreated, badRequestException.Message);
         }
-
     }
 }

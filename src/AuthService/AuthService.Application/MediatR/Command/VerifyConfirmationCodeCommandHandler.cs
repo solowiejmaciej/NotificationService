@@ -1,10 +1,13 @@
-using System.ComponentModel;
+#region
+
 using AuthService.Application.ApplicationUserContext;
 using AuthService.Domain.Interfaces;
 using MediatR;
 using Microsoft.Extensions.Logging;
 using Shared.Enums;
 using Shared.Exceptions;
+
+#endregion
 
 namespace AuthService.Application.MediatR.Command;
 
@@ -20,13 +23,14 @@ public class VerifyConfirmationCodeCommandHandler : IRequestHandler<VerifyConfir
         IConfirmationCodesRepository confirmationCodesRepository,
         IUserContext userContext,
         IUsersRepository usersRepository
-        )
+    )
     {
         _logger = logger;
         _confirmationCodesRepository = confirmationCodesRepository;
         _userContext = userContext;
         _usersRepository = usersRepository;
     }
+
     public async Task Handle(VerifyConfirmationCodeCommand request, CancellationToken cancellationToken)
     {
         var currentUser = _userContext.GetCurrentUser();
@@ -34,20 +38,18 @@ public class VerifyConfirmationCodeCommandHandler : IRequestHandler<VerifyConfir
         {
             case ENotificationChannel.Email:
                 _logger.LogInformation("Verifying email confirmation code");
-                var isEmailCodeValid = await _confirmationCodesRepository.IsValidCode(currentUser.Id, request.Code, ENotificationChannel.Email);
-                if (!isEmailCodeValid)
-                {
-                    throw new NotFoundException("Invalid code");
-                }
+                var isEmailCodeValid =
+                    await _confirmationCodesRepository.IsValidCode(currentUser.Id, request.Code,
+                        ENotificationChannel.Email);
+                if (!isEmailCodeValid) throw new NotFoundException("Invalid code");
                 await _usersRepository.ConfirmEmailAsync(currentUser.Id);
                 break;
             case ENotificationChannel.SMS:
                 _logger.LogInformation("Verifying sms confirmation code");
-                var isSmsCodeValid = await _confirmationCodesRepository.IsValidCode(currentUser.Id, request.Code, ENotificationChannel.SMS);
-                if (!isSmsCodeValid)
-                {
-                    throw new NotFoundException("Invalid code");
-                }
+                var isSmsCodeValid =
+                    await _confirmationCodesRepository.IsValidCode(currentUser.Id, request.Code,
+                        ENotificationChannel.SMS);
+                if (!isSmsCodeValid) throw new NotFoundException("Invalid code");
                 await _usersRepository.ConfirmPhoneNumberAsync(currentUser.Id, cancellationToken);
                 break;
             default:
@@ -55,7 +57,6 @@ public class VerifyConfirmationCodeCommandHandler : IRequestHandler<VerifyConfir
         }
     }
 }
-
 
 public class VerifyConfirmationCodeCommand : IRequest
 {

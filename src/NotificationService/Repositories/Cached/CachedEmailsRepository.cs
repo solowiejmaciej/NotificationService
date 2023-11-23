@@ -1,5 +1,9 @@
-﻿using NotificationService.Entities.NotificationEntities;
+﻿#region
+
+using NotificationService.Entities.NotificationEntities;
 using NotificationService.Services;
+
+#endregion
 
 namespace NotificationService.Repositories.Cached;
 
@@ -9,7 +13,8 @@ public class CachedEmailsRepository : IEmailsRepository
     private readonly ICacheService _cacheService;
     private readonly ILogger<CachedEmailsRepository> _logger;
 
-    public CachedEmailsRepository(IEmailsRepository decorated, ICacheService cacheService, ILogger<CachedEmailsRepository> logger)
+    public CachedEmailsRepository(IEmailsRepository decorated, ICacheService cacheService,
+        ILogger<CachedEmailsRepository> logger)
     {
         _decorated = decorated;
         _cacheService = cacheService;
@@ -56,7 +61,8 @@ public class CachedEmailsRepository : IEmailsRepository
         return await _decorated.AddAsync(email, cancellationToken);
     }
 
-    public async Task<List<EmailNotification>> GetAllEmailsToUserIdAsync(string userId, CancellationToken cancellationToken = default)
+    public async Task<List<EmailNotification>> GetAllEmailsToUserIdAsync(string userId,
+        CancellationToken cancellationToken = default)
     {
         var key = $"emails-{userId}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
@@ -65,22 +71,20 @@ public class CachedEmailsRepository : IEmailsRepository
         {
             _logger.LogInformation("Fetching from db for key {0}", key);
             var data = await _decorated.GetAllEmailsToUserIdAsync(userId, cancellationToken);
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
         return cachedData;
     }
 
-    public async Task<EmailNotification?> GetEmailByIdAndUserIdAsync(int id, string userId, CancellationToken cancellationToken = default)
+    public async Task<EmailNotification?> GetEmailByIdAndUserIdAsync(int id, string userId,
+        CancellationToken cancellationToken = default)
     {
-        
-        string key = $"email-{id}";
+        var key = $"email-{id}";
         var expiryTime = DateTimeOffset.Now.AddMinutes(5);
         var cachedData = await _cacheService.GetDataAsync<EmailNotification>(key, cancellationToken);
         if (cachedData is null)
@@ -88,14 +92,12 @@ public class CachedEmailsRepository : IEmailsRepository
             _logger.LogInformation("Fetching from db for key {0}", key);
             var data = await _decorated.GetEmailByIdAndUserIdAsync(id, userId, cancellationToken);
 
-            if (data is null)
-            {
-                return data;
-            }
+            if (data is null) return data;
 
-            await _cacheService.SetDataAsync(key, data ,expiryTime, cancellationToken );
+            await _cacheService.SetDataAsync(key, data, expiryTime, cancellationToken);
             return data;
         }
+
         _logger.LogInformation("Cache hit for key {0}", key);
         return cachedData;
     }
