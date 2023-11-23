@@ -6,7 +6,7 @@ export const options = {
             executor: "ramping-vus",
             stages: [
                 {duration: "60s", target: 100},
-                {duration: "30s", target: 0}
+                {duration: "35s", target: 0}
             ]
         }
     }
